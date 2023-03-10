@@ -1,4 +1,4 @@
-import { Sample } from "@/entities/sample";
+import { Sample } from "@/domains/sample";
 
 export interface SampleAPI {
   list(): Promise<Sample[]>;

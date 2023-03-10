@@ -1,4 +1,4 @@
-import { Sample } from "@/entities/sample";
+import { Sample } from "@/domains/sample";
 import { SampleAPI } from "@/usecases/ports/sample";
 
 const data: Sample[] = [

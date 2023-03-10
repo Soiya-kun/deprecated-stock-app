@@ -1,6 +1,6 @@
 import { useInMemorySampleAPI } from "@/adapters/api/sample/mock";
 import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
-import { Token } from "@/entities/auth";
+import { Token } from "@/domains/auth";
 import { SampleCreate } from "@/usecases/dto/sample";
 import { createSample, getSample, listSamples } from "@/usecases/sample";
 import { findMe } from "@/usecases/user";

@@ -1,4 +1,4 @@
-import { GeneralUser, User } from "@/entities/user";
+import { GeneralUser, User } from "@/domains/user";
 import { UserAPI } from "@/usecases/ports/user";
 
 export const useInMemoryUserAPI = (): UserAPI => ({

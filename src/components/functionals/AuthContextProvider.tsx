@@ -8,8 +8,8 @@ import {
   useState,
 } from "react";
 
-import { newToken, Token } from "@/entities/auth";
-import { newUser, User } from "@/entities/user";
+import { newToken, Token } from "@/domains/auth";
+import { newUser, User } from "@/domains/user";
 import { useFindMe, useGetTokenInCache } from "@/hooks/injections";
 
 export type AuthContextType = {
