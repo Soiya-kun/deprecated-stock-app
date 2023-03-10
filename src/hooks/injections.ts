@@ -1,44 +1,34 @@
-import { useInMemorySampleAPI } from "@/adapters/api/sample/mock";
+import { useMockAuthAPI } from "@/adapters/api/auth/mock";
 import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
-import { Token } from "@/domains/auth";
-import { SampleCreate } from "@/usecases/dto/sample";
-import { createSample, getSample, listSamples } from "@/usecases/sample";
+import { useAuthDriverForAxios } from "@/adapters/auth/auth";
+import { LoginReq, Token } from "@/domains/auth/dto";
+import { login } from "@/usecases/auth";
 import { findMe } from "@/usecases/user";
 
 // Auth
-// TODO usecase・adapterの実装
+export const useLogin = () => {
+  const deps = {
+    api: useMockAuthAPI(),
+    auth: useAuthDriverForAxios(),
+  };
+  return (loginReq: LoginReq) => login(deps, loginReq);
+};
+
 export const useGetTokenInCache = (): (() => Token) => () => ({
   tokenType: "Bearer",
   accessToken: "mockToken",
 });
 
+export const useSaveTokenToCache = () => {
+  const deps = {
+    auth: useAuthDriverForAxios(),
+  };
+  return (token: Token) => deps.auth.saveTokenToCache(token);
+};
 // User
 export const useFindMe = () => {
   const deps = {
     api: useInMemoryUserAPI(),
   };
   return () => findMe(deps);
-};
-
-export const useListSamples = () => {
-  const deps = {
-    api: useInMemorySampleAPI(),
-  };
-  return () => listSamples(deps);
-};
-
-export const useGetSample = () => {
-  const deps = {
-    api: useInMemorySampleAPI(),
-  };
-
-  return (id: string) => getSample(id, deps);
-};
-
-export const useCreateSample = () => {
-  const deps = {
-    api: useInMemorySampleAPI(),
-  };
-
-  return (sc: SampleCreate) => createSample(sc, deps);
 };

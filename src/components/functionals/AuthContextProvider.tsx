@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { newToken, Token } from "@/domains/auth";
+import { newToken, Token } from "@/domains/auth/dto";
 import { newUser, User } from "@/domains/user";
 import { useFindMe, useGetTokenInCache } from "@/hooks/injections";
 
