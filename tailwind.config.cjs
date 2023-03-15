@@ -22,6 +22,13 @@ module.exports = {
         },
       },
     },
+    screens: {
+      "ph-in": { max: "40rem" },
+      "ph-out": { min: "40rem" },
+    },
+    minHeight: {
+      content: "calc(100vh - 13rem)",
+    },
   },
   plugins: [],
 };

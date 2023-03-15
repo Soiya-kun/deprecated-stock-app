@@ -3,6 +3,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -67,3 +68,8 @@ export function AuthContextProvider({ children }: Props) {
     <AuthContext.Provider value={authMemo}>{children}</AuthContext.Provider>
   );
 }
+
+export const useAuthContext = () => {
+  const [auth] = useContext(AuthContext);
+  return auth;
+};
