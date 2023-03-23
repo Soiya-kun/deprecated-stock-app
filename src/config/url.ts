@@ -1,6 +1,6 @@
 export const appURL = {
   error: "*",
-  login: "/",
-  home: "/home",
+  login: "/signin",
+  home: "",
   register: "/register",
 };
