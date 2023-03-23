@@ -4,10 +4,10 @@ export const stocksComputed = (props: {
   dayCount: number;
   dayBeforeCount: number;
   stocks: Stock[];
-}): (string | number | null)[][] => {
+}): (string | number | null | Date)[][] => {
   const newDayCount = props.dayCount < 0 ? 1 : props.dayCount;
   const newDayBeforeCount = props.dayBeforeCount < 0 ? 0 : props.dayBeforeCount;
-  const ret = props.stocks
+  const ret: (string | number | null | Date)[][] = props.stocks
     .map((stock: Stock, index: number, array: Stock[]) => {
       let ma5: number | null = null;
       if (index >= 5) {
@@ -37,14 +37,14 @@ export const stocksComputed = (props: {
           60;
       }
       return [
-        stock.bDate,
+        new Date(stock.bDate),
         stock.highPrice,
         stock.openedPrice,
         stock.closedPrice,
         stock.lowPrice,
         ma5,
         ma20,
-        ma60,
+        ma60 === null ? -1 : Math.floor(ma60),
       ];
     })
     .slice(

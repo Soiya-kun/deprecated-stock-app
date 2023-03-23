@@ -5,7 +5,7 @@ import { stocksComputed } from "@/domains/stock/computed";
 import { Stock } from "@/domains/stock/dto";
 
 export function TopPage() {
-  const data: Stock[] = Array(60)
+  const data: Stock[] = Array(120)
     .fill(0)
     .map((_, i) => mockStock(i));
 
@@ -44,8 +44,8 @@ export function TopPage() {
   ];
   console.log(
     stocksComputed({
-      dayCount: 30,
-      dayBeforeCount: 15,
+      dayCount: 120,
+      dayBeforeCount: 60,
       stocks: data,
     }),
   );
@@ -56,18 +56,25 @@ export function TopPage() {
         width="100%"
         height="400px"
         data={stocksComputed({
-          dayCount: 30,
-          dayBeforeCount: 15,
+          dayCount: 120,
+          dayBeforeCount: 45,
           stocks: data,
         })}
         options={{
+          seriesType: "candlesticks",
           series: {
-            0: {
-              type: "candlesticks",
-            },
             1: {
               type: "line",
             },
+            2: {
+              type: "line",
+            },
+            3: {
+              type: "line",
+            },
+          },
+          vAxis: {
+            minValue: 0,
           },
         }}
       />
