@@ -3,6 +3,7 @@ import { Chart } from "react-google-charts";
 
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import {
+  GraphValue,
   stockValueWeekWithMa,
   stockValueWithMa,
   stockVolumes,
@@ -69,7 +70,7 @@ export function TopPage() {
           data={(
             [
               ["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60"],
-            ] as (string | number | Date | null)[][]
+            ] as GraphValue[]
           ).concat(
             svDay.slice(
               dateState.dayBeforeCount,
@@ -102,9 +103,7 @@ export function TopPage() {
           chartType="ColumnChart"
           width="100%"
           height="400px"
-          data={(
-            [["Date", "volume"]] as (string | number | Date | null)[][]
-          ).concat(
+          data={([["Date", "volume"]] as GraphValue[]).concat(
             vDay.slice(
               dateState.dayBeforeCount,
               dateState.dayCount + dateState.dayBeforeCount,
@@ -128,12 +127,9 @@ export function TopPage() {
           width="100%"
           height="400px"
           data={(
-            [["Date", "High", "Open", "Close", "Low", "ma13", "ma26"]] as (
-              | string
-              | number
-              | Date
-              | null
-            )[][]
+            [
+              ["Date", "High", "Open", "Close", "Low", "ma13", "ma26"],
+            ] as GraphValue[]
           ).concat(
             svWeek.slice(
               dateState.weekBeforeCount,
@@ -164,7 +160,7 @@ export function TopPage() {
           chartType="ColumnChart"
           width="100%"
           height="400px"
-          data={([["Date", "volume"]] as (string | number)[][]).concat(
+          data={([["Date", "volume"]] as GraphValue[]).concat(
             vWeek.slice(
               dateState.weekBeforeCount,
               dateState.weekCount + dateState.weekBeforeCount,

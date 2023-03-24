@@ -1,6 +1,6 @@
 import { Stock } from "@/domains/stock/dto";
 
-type GraphValue = (string | number)[];
+export type GraphValue = (string | number)[];
 
 const getMa = (stocks: Stock[], index: number, length: number): number => {
   if (index < length) {
