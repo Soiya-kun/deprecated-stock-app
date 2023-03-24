@@ -28,7 +28,7 @@ export const mockStock = (index: number, openPrice: number): Stock => ({
 export const useMockStockAPI = (): StockAPI => ({
   async getStocks(stockCode: string): Promise<Stock[]> {
     let prev = 500;
-    return Array(2500)
+    return Array(100000)
       .fill(0)
       .map((_, i) => {
         const ret = mockStock(i, prev);
