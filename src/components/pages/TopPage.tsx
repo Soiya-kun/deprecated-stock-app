@@ -164,9 +164,7 @@ export function TopPage() {
           chartType="ColumnChart"
           width="100%"
           height="400px"
-          data={(
-            [["Date", "volume"]] as (string | number | Date | null)[][]
-          ).concat(
+          data={([["Date", "volume"]] as (string | number)[][]).concat(
             vWeek.slice(
               dateState.weekBeforeCount,
               dateState.weekCount + dateState.weekBeforeCount,

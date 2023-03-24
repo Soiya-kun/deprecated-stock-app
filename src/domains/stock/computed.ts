@@ -1,6 +1,6 @@
 import { Stock } from "@/domains/stock/dto";
 
-type StockValue = (string | number)[];
+type GraphValue = (string | number)[];
 
 const getMa = (stocks: Stock[], index: number, length: number): number => {
   if (index < length) {
@@ -15,7 +15,7 @@ const getMa = (stocks: Stock[], index: number, length: number): number => {
 };
 
 const getMaByStockValue = (
-  stockValues: StockValue[],
+  stockValues: GraphValue[],
   index: number,
   length: number,
 ): number => {
@@ -25,12 +25,12 @@ const getMaByStockValue = (
   return (
     stockValues
       .slice(index - length + 1, index + 1)
-      .map((s: StockValue) => Number(s[3]))
+      .map((s: GraphValue) => Number(s[3]))
       .reduce((sum: number, closedPrice: number) => sum + closedPrice) / length
   );
 };
 
-export const stockValueWithMa = (props: { stocks: Stock[] }): StockValue[] =>
+export const stockValueWithMa = (props: { stocks: Stock[] }): GraphValue[] =>
   props.stocks.map((stock: Stock, index: number, array: Stock[]) => {
     const ma5 = getMa(array, index, 5);
     const ma20 = getMa(array, index, 20);
@@ -50,7 +50,7 @@ export const stockValueWithMa = (props: { stocks: Stock[] }): StockValue[] =>
 // ["Date", "High", "Open", "Close", "Low", "ma13", "ma26"]
 export const stockValueWeekWithMa = (props: {
   stocks: Stock[];
-}): StockValue[] => {
+}): GraphValue[] => {
   if (props.stocks.length === 0) {
     return [];
   }
@@ -62,7 +62,7 @@ export const stockValueWeekWithMa = (props: {
   firstDateOfMonday.setDate(
     firstDateOfMonday.getDate() + 1 - firstDateOfMonday.getDay(),
   );
-  let res: StockValue[] = [];
+  let res: GraphValue[] = [];
   props.stocks.forEach((stock) => {
     const thisDate = new Date(stock.bDate);
     const diffMilliSec = thisDate.getTime() - firstDateOfMonday.getTime();
@@ -93,23 +93,19 @@ export const stockValueWeekWithMa = (props: {
     lastStock = stock;
   });
 
-  res = res.map((data: StockValue, index: number, array: StockValue[]) =>
+  res = res.map((data: GraphValue, index: number, array: GraphValue[]) =>
     data.concat(getMaByStockValue(array, index, 13)),
   );
-  res = res.map((data: StockValue, index: number, array: StockValue[]) =>
+  res = res.map((data: GraphValue, index: number, array: GraphValue[]) =>
     data.concat(getMaByStockValue(array, index, 26)),
   );
   return res;
 };
 
-export const stockVolumes = (props: {
-  stocks: Stock[];
-}): (string | number)[][] =>
+export const stockVolumes = (props: { stocks: Stock[] }): GraphValue[] =>
   props.stocks.map((stock: Stock) => [stock.bDate, stock.volume]);
 
-export const stockVolumesWeek = (props: {
-  stocks: Stock[];
-}): (string | number | Date)[][] => {
+export const stockVolumesWeek = (props: { stocks: Stock[] }): GraphValue[] => {
   if (props.stocks.length === 0) {
     return [];
   }
