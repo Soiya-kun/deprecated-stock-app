@@ -1,6 +1,6 @@
 import { Stock } from "@/domains/stock/dto";
 
-export const stocksComputed = (props: {
+export const stockValueWithMa = (props: {
   dayCount: number;
   dayBeforeCount: number;
   stocks: Stock[];
@@ -52,5 +52,22 @@ export const stocksComputed = (props: {
       props.stocks.length + newDayBeforeCount,
     );
   ret.unshift(["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60"]);
+  return ret;
+};
+
+export const stockVolumes = (props: {
+  dayCount: number;
+  dayBeforeCount: number;
+  stocks: Stock[];
+}): (string | number | null | Date)[][] => {
+  const newDayCount = props.dayCount < 0 ? 1 : props.dayCount;
+  const newDayBeforeCount = props.dayBeforeCount < 0 ? 0 : props.dayBeforeCount;
+  const ret: (string | number | null | Date)[][] = props.stocks
+    .map((stock: Stock) => [new Date(stock.bDate), stock.volume])
+    .slice(
+      props.stocks.length - newDayCount + newDayBeforeCount,
+      props.stocks.length + newDayBeforeCount,
+    );
+  ret.unshift(["Date", "Volume"]);
   return ret;
 };
