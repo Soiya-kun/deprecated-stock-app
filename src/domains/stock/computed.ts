@@ -44,6 +44,7 @@ export const stockValueWithMa = (props: { stocks: Stock[] }): GraphValue[] =>
       ma5,
       ma20,
       ma60 === null ? -1 : Math.floor(ma60),
+      stock.volume,
     ];
   });
 
@@ -54,6 +55,7 @@ export const stockValueWeekWithMa = (props: {
   if (props.stocks.length === 0) {
     return [];
   }
+  let volume = 0;
   let highPrice = 0;
   let openedPrice = 0;
   let lowPrice = 99999999999;
@@ -75,8 +77,10 @@ export const stockValueWeekWithMa = (props: {
         openedPrice,
         lastStock.closedPrice,
         lowPrice,
+        volume,
       ]);
       firstDateOfMonday.setDate(firstDateOfMonday.getDate() + 7);
+      volume = 0;
       highPrice = 0;
       openedPrice = 0;
       lowPrice = 99999999999;
@@ -91,6 +95,7 @@ export const stockValueWeekWithMa = (props: {
       openedPrice = stock.openedPrice;
     }
     lastStock = stock;
+    volume += stock.volume;
   });
 
   res = res.map((data: GraphValue, index: number, array: GraphValue[]) =>
@@ -100,35 +105,4 @@ export const stockValueWeekWithMa = (props: {
     data.concat(getMaByStockValue(array, index, 26)),
   );
   return res;
-};
-
-export const stockVolumes = (props: { stocks: Stock[] }): GraphValue[] =>
-  props.stocks.map((stock: Stock) => [stock.bDate, stock.volume]);
-
-export const stockVolumesWeek = (props: { stocks: Stock[] }): GraphValue[] => {
-  if (props.stocks.length === 0) {
-    return [];
-  }
-  let volume = 0;
-  const firstDateOfMonday = new Date(props.stocks[0].bDate);
-  firstDateOfMonday.setDate(
-    firstDateOfMonday.getDate() + 1 - firstDateOfMonday.getDay(),
-  );
-  const volumes: (string | number)[][] = [];
-  props.stocks.forEach((stock) => {
-    const thisDate = new Date(stock.bDate);
-    const diffMilliSec = thisDate.getTime() - firstDateOfMonday.getTime();
-    if (diffMilliSec / 1000 / 60 / 60 / 24 >= 5) {
-      volumes.push([
-        `${firstDateOfMonday.getFullYear()}-${
-          firstDateOfMonday.getMonth() + 1
-        }-${firstDateOfMonday.getDate()}`,
-        volume,
-      ]);
-      firstDateOfMonday.setDate(firstDateOfMonday.getDate() + 7);
-      volume = 0;
-    }
-    volume += stock.volume;
-  });
-  return volumes;
 };

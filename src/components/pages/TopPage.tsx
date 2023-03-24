@@ -6,8 +6,6 @@ import {
   GraphValue,
   stockValueWeekWithMa,
   stockValueWithMa,
-  stockVolumes,
-  stockVolumesWeek,
 } from "@/domains/stock/computed";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
 import { useGetStocks } from "@/hooks/injections";
@@ -15,9 +13,7 @@ import { useGetStocks } from "@/hooks/injections";
 export function TopPage() {
   const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], "0001");
   const svDay = stockValueWithMa({ stocks: findStocksHook.ret });
-  const vDay = stockVolumes({ stocks: findStocksHook.ret });
   const svWeek = stockValueWeekWithMa({ stocks: findStocksHook.ret });
-  const vWeek = stockVolumesWeek({ stocks: findStocksHook.ret });
 
   const [dateState, setDateState] = useState<{
     dayCount: number;
@@ -69,7 +65,17 @@ export function TopPage() {
           height="400px"
           data={(
             [
-              ["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60"],
+              [
+                "Date",
+                "High",
+                "Open",
+                "Close",
+                "Low",
+                "ma5",
+                "ma20",
+                "ma60",
+                "volume",
+              ],
             ] as GraphValue[]
           ).concat(
             svDay.slice(
@@ -89,30 +95,26 @@ export function TopPage() {
               3: {
                 type: "line",
               },
+              4: {
+                type: "bars",
+                targetAxisIndex: 1,
+              },
             },
-            vAxis: {
-              minValue: 0,
-            },
-            chartArea: {
-              left: "15%",
-              width: "70%",
-            },
-          }}
-        />
-        <Chart
-          chartType="ColumnChart"
-          width="100%"
-          height="400px"
-          data={([["Date", "volume"]] as GraphValue[]).concat(
-            vDay.slice(
-              dateState.dayBeforeCount,
-              dateState.dayCount + dateState.dayBeforeCount,
-            ),
-          )}
-          options={{
-            height: 100,
-            vAxis: {
-              format: "0", // 整数のみを表示
+            vAxes: {
+              0: { title: "円" },
+              1: {
+                title: "株",
+                minValue: 0,
+                maxValue:
+                  Number(
+                    svDay
+                      .slice(
+                        dateState.dayBeforeCount,
+                        dateState.dayCount + dateState.dayBeforeCount,
+                      )
+                      .sort((a, b) => Number(b[8]) - Number(a[8]))[0][8],
+                  ) * 4,
+              },
             },
             chartArea: {
               left: "15%",
@@ -128,7 +130,16 @@ export function TopPage() {
           height="400px"
           data={(
             [
-              ["Date", "High", "Open", "Close", "Low", "ma13", "ma26"],
+              [
+                "Date",
+                "High",
+                "Open",
+                "Close",
+                "Low",
+                "volume",
+                "ma13",
+                "ma26",
+              ],
             ] as GraphValue[]
           ).concat(
             svWeek.slice(
@@ -140,36 +151,31 @@ export function TopPage() {
             seriesType: "candlesticks",
             series: {
               1: {
-                type: "line",
+                type: "bars",
+                targetAxisIndex: 1,
               },
               2: {
                 type: "line",
               },
+              3: {
+                type: "line",
+              },
             },
-            vAxis: {
-              minValue: 0,
-            },
-            chartArea: {
-              left: "15%",
-              width: "70%",
-            },
-          }}
-        />
-        <Chart
-          className="top-8"
-          chartType="ColumnChart"
-          width="100%"
-          height="400px"
-          data={([["Date", "volume"]] as GraphValue[]).concat(
-            vWeek.slice(
-              dateState.weekBeforeCount,
-              dateState.weekCount + dateState.weekBeforeCount,
-            ),
-          )}
-          options={{
-            height: 100,
-            vAxis: {
-              format: "0", // 整数のみを表示
+            vAxes: {
+              0: { title: "円" },
+              1: {
+                title: "株",
+                minValue: 0,
+                maxValue:
+                  Number(
+                    svWeek
+                      .slice(
+                        dateState.weekBeforeCount,
+                        dateState.weekCount + dateState.weekBeforeCount,
+                      )
+                      .sort((a, b) => Number(b[5]) - Number(a[5]))[0][5],
+                  ) * 4,
+              },
             },
             chartArea: {
               left: "15%",
