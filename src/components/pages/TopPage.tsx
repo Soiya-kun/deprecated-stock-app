@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-google-charts";
 
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
@@ -12,8 +12,14 @@ import { useGetStocks } from "@/hooks/injections";
 
 export function TopPage() {
   const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], "0001");
-  const svDay = stockValueWithMa({ stocks: findStocksHook.ret });
-  const svWeek = stockValueWeekWithMa({ stocks: findStocksHook.ret });
+  const svDay = useMemo(
+    () => stockValueWithMa({ stocks: findStocksHook.ret }),
+    [findStocksHook.ret],
+  );
+  const svWeek = useMemo(
+    () => stockValueWeekWithMa({ stocks: findStocksHook.ret }),
+    [findStocksHook.ret],
+  );
 
   const [dateState, setDateState] = useState<{
     dayCount: number;
