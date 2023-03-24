@@ -1,29 +1,72 @@
+import { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 
-import { mockStock } from "@/adapters/api/stock/mock";
+import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import { stockValueWithMa, stockVolumes } from "@/domains/stock/computed";
-import { Stock } from "@/domains/stock/dto";
+import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
+import { useGetStocks } from "@/hooks/injections";
 
 export function TopPage() {
-  let prev = 500;
-  const data: Stock[] = Array(120)
-    .fill(0)
-    .map((_, i) => {
-      const ret = mockStock(i, prev);
-      prev = ret.closedPrice;
-      return ret;
-    });
+  const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], "0001");
+  const sv = stockValueWithMa({ stocks: findStocksHook.ret });
+  const v = stockVolumes({ stocks: findStocksHook.ret });
+
+  const [dayState, setDayState] = useState<{
+    dayCount: number;
+    dayBeforeCount: number;
+  }>({
+    dayCount: 120,
+    dayBeforeCount: 45,
+  });
+
+  const [isDisabledRightArrow, setIsDisabledRightArrow] =
+    useState<boolean>(false);
+  const handleKeyDownOnRightArrow = (e: KeyboardEvent) => {
+    if (e.key === "ArrowRight") {
+      setDayState((prev) => ({
+        ...prev,
+        dayBeforeCount: prev.dayBeforeCount + 1,
+      }));
+    }
+  };
+  const handleKeyDownOnLeftArrow = (e: KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      setDayState((prev) => ({
+        ...prev,
+        dayBeforeCount: prev.dayBeforeCount - 1,
+      }));
+    }
+  };
+
+  useEffect(() => {
+    // handleKeyDownOnRightArrow, handleKeyDownOnLeftArrowを登録
+    window.addEventListener("keydown", handleKeyDownOnRightArrow);
+    window.addEventListener("keydown", handleKeyDownOnLeftArrow);
+  }, []);
+
+  if (findStocksHook.isLoading || findStocksHook.hasFailed) {
+    return <SixDotsScaleMiddle />;
+  }
+
   return (
     <>
       <Chart
         chartType="ComboChart"
         width="100%"
         height="400px"
-        data={stockValueWithMa({
-          dayCount: 2000,
-          dayBeforeCount: 0,
-          stocks: data,
-        })}
+        data={(
+          [["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60"]] as (
+            | string
+            | number
+            | Date
+            | null
+          )[][]
+        ).concat(
+          sv.slice(
+            dayState.dayBeforeCount,
+            dayState.dayCount + dayState.dayBeforeCount,
+          ),
+        )}
         options={{
           seriesType: "candlesticks",
           series: {
@@ -40,19 +83,29 @@ export function TopPage() {
           vAxis: {
             minValue: 0,
           },
+          chartArea: {
+            left: "15%",
+            width: "70%",
+          },
         }}
       />
       <Chart
         chartType="ColumnChart"
         width="100%"
         height="400px"
-        data={stockVolumes({
-          dayCount: 120,
-          dayBeforeCount: 45,
-          stocks: data,
-        })}
+        data={(
+          [["Date", "volume"]] as (string | number | Date | null)[][]
+        ).concat(
+          v.slice(
+            dayState.dayBeforeCount,
+            dayState.dayCount + dayState.dayBeforeCount,
+          ),
+        )}
         options={{
           height: 100,
+          vAxis: {
+            format: "0", // 整数のみを表示
+          },
           chartArea: {
             left: "15%",
             width: "70%",

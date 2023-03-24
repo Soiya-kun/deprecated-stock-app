@@ -1,4 +1,5 @@
 import { Stock } from "@/domains/stock/dto";
+import { StockAPI } from "@/usecases/ports/stock";
 
 export const mockBDate = (index: number): string => {
   const date = new Date();
@@ -22,4 +23,17 @@ export const mockStock = (index: number, openPrice: number): Stock => ({
   marketCapitalization: 12341234,
   lowLimit: 300,
   highLimit: 800,
+});
+
+export const useMockStockAPI = (): StockAPI => ({
+  async getStocks(stockCode: string): Promise<Stock[]> {
+    let prev = 500;
+    return Array(2500)
+      .fill(0)
+      .map((_, i) => {
+        const ret = mockStock(i, prev);
+        prev = ret.closedPrice;
+        return { ...ret, sc: stockCode };
+      });
+  },
 });
