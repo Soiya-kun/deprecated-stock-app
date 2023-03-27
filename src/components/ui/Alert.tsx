@@ -26,7 +26,7 @@ export function Alert() {
             className={`relative rounded border  px-4 py-3 ${boxColor}`}
             role="alert"
           >
-            <span className="block sm:inline">{alert.state.alertMessage}</span>
+            <span className="sm:inline block">{alert.state.alertMessage}</span>
             <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
               <svg
                 onClick={handleClickClose}

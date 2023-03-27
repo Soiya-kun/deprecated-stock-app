@@ -7,16 +7,18 @@ import {
 } from "@/components/ui/TitleAndErrorFrame";
 import { Validations } from "@/domains/validationObject";
 
+export type InputHook<T> = {
+  obj: T;
+  handleChangeOnInput: (
+    e: ChangeEvent<HTMLInputElement>,
+    name: keyof T,
+  ) => void;
+  validations: Validations<T>;
+};
+
 export type Props<T> = {
   className?: string;
-  inputHook: {
-    obj: T;
-    handleChangeOnInput: (
-      e: ChangeEvent<HTMLInputElement>,
-      name: keyof T,
-    ) => void;
-    validations: Validations<T>;
-  };
+  inputHook: InputHook<T>;
   disabled?: boolean;
   hasValidated?: boolean;
   helpText?: string;

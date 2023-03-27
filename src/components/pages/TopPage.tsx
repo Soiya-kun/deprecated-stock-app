@@ -1,12 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-google-charts";
 
+import {
+  newStartingSetting,
+  SimulationStartPresenter,
+  StartingSetting,
+} from "@/components/features/stock/SimulationStartPresenter";
+import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import {
   GraphValue,
   stockValueWeekWithMa,
   stockValueWithMa,
 } from "@/domains/stock/computed";
+import { handleChangeOnInput } from "@/handlers/commonHandlers";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
 import { useGetStocks } from "@/hooks/injections";
 
@@ -32,6 +39,21 @@ export function TopPage() {
     weekCount: 12,
     weekBeforeCount: 9,
   });
+
+  const [startingSetting, setStartingSetting] = useState<StartingSetting>(
+    newStartingSetting(),
+  );
+  const startSettingInputHook: InputHook<StartingSetting> = {
+    handleChangeOnInput: (e, name) =>
+      handleChangeOnInput<StartingSetting>(
+        e,
+        name,
+        setStartingSetting,
+        startingSetting,
+      ),
+    obj: newStartingSetting(),
+    validations: [],
+  };
 
   const [isDisabledRightArrow, setIsDisabledRightArrow] =
     useState<boolean>(false);
@@ -64,7 +86,9 @@ export function TopPage() {
 
   return (
     <div className="flex">
-      <div className="w-1/2">test</div>
+      <div className="flex w-1/2 items-center justify-center">
+        <SimulationStartPresenter inputHook={startSettingInputHook} />
+      </div>
       <div className="w-1/2">
         <div>
           <Chart

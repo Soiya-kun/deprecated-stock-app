@@ -10,7 +10,7 @@ export function HeaderPresenter() {
   const { showMode } = useBreakPointContext();
   const { isLoggedIn } = useAuthContext();
   return (
-    <div className="ph-in:px-4 ph-out:px-12 fixed z-10 flex h-16 w-full items-center border-b border-gray-300 bg-primary text-sm">
+    <div className="fixed z-10 flex h-16 w-full items-center border-b border-gray-300 bg-primary text-sm ph-in:px-4 ph-out:px-12">
       {showMode === "ph-out" && (
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center">
