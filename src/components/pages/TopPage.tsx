@@ -44,14 +44,15 @@ export function TopPage() {
     newStartingSetting(),
   );
   const startSettingInputHook: InputHook<StartingSetting> = {
-    handleChangeOnInput: (e, name) =>
+    handleChangeOnInput: (e, name, type) =>
       handleChangeOnInput<StartingSetting>(
         e,
         name,
         setStartingSetting,
         startingSetting,
+        type,
       ),
-    obj: newStartingSetting(),
+    obj: startingSetting,
     validations: [],
   };
 
@@ -85,7 +86,7 @@ export function TopPage() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-full h-[90]">
       <div className="flex w-1/2 items-center justify-center">
         <SimulationStartPresenter inputHook={startSettingInputHook} />
       </div>

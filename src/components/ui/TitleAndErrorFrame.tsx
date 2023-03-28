@@ -14,6 +14,7 @@ export type Props<T> = {
   importanceLabel?: ImportanceLabel;
   hasValidated?: boolean;
   className?: string;
+  innerClassName?: string;
   children: ReactNode;
 };
 
@@ -28,6 +29,7 @@ export function TitleAndErrorFrame<T>({
   importanceLabel,
   hasValidated = false,
   className,
+  innerClassName,
   children,
 }: Props<T>) {
   const validationResult = validateByKey(obj, name, validations);
@@ -53,7 +55,7 @@ export function TitleAndErrorFrame<T>({
           </span>
         )}
       </div>
-      <div>
+      <div className={`${innerClassName}`}>
         {children}
         {helpText !== "" && (
           <p className="mt-1 text-xs text-gray-400">{helpText}</p>

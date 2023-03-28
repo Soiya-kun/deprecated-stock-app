@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLInputTypeAttribute } from "react";
+import { ChangeEvent, HTMLInputTypeAttribute, ReactNode } from "react";
 
 import { Input } from "@/components/ui/Input";
 import {
@@ -12,6 +12,7 @@ export type InputHook<T> = {
   handleChangeOnInput: (
     e: ChangeEvent<HTMLInputElement>,
     name: keyof T,
+    type?: HTMLInputTypeAttribute,
   ) => void;
   validations: Validations<T>;
 };
@@ -24,6 +25,7 @@ export type Props<T> = {
   helpText?: string;
   id?: string;
   importanceLabel?: ImportanceLabel;
+  innerClassName?: string;
   inputClassName?: string;
   label: string;
   maxLength?: number;
@@ -31,6 +33,7 @@ export type Props<T> = {
   onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
+  children?: ReactNode;
 };
 
 // Figma TextField
@@ -42,6 +45,7 @@ export function InputWithTitleAndError<T>({
   helpText,
   id,
   importanceLabel,
+  innerClassName,
   inputClassName,
   label,
   maxLength,
@@ -49,10 +53,12 @@ export function InputWithTitleAndError<T>({
   onBlur,
   placeholder,
   type,
+  children,
 }: Props<T>) {
   return (
     <TitleAndErrorFrame
       className={className}
+      innerClassName={innerClassName}
       hasValidated={hasValidated}
       helpText={helpText}
       htmlFor={id}
@@ -69,11 +75,11 @@ export function InputWithTitleAndError<T>({
         maxLength={maxLength}
         name={String(name)}
         onBlur={onBlur}
-        onChange={(e) => inputHook.handleChangeOnInput(e, name)}
+        onChange={(e) => inputHook.handleChangeOnInput(e, name, type)}
         placeholder={placeholder}
         type={type}
-        value={String(inputHook.obj[name])}
       />
+      {children}
     </TitleAndErrorFrame>
   );
 }
