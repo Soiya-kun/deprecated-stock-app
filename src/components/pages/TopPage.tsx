@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Chart } from "react-google-charts";
 
 import {
+  SimulationHook,
+  SimulationPresenter,
+} from "@/components/features/stock/SimulationPresenter";
+import {
   newStartingSetting,
   SimulationStartPresenter,
   StartingSetting,
@@ -13,6 +17,11 @@ import {
   stockValueWeekWithMa,
   stockValueWithMa,
 } from "@/domains/stock/computed";
+import {
+  newUnitTransaction,
+  TransactionType,
+  UnitTransaction,
+} from "@/domains/stockTransaction/dto";
 import { handleChangeOnInput } from "@/handlers/commonHandlers";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
 import { useGetStocks } from "@/hooks/injections";
@@ -56,6 +65,34 @@ export function TopPage() {
     validations: [],
   };
 
+  const [isStart, setIsStart] = useState<boolean>(false);
+  const handleClickOnStartButton = () => {
+    setIsStart(true);
+  };
+
+  const [unitTransaction, setUnitTransaction] = useState<UnitTransaction>(
+    newUnitTransaction(),
+  );
+  const simulationHook: SimulationHook = {
+    handleChangeOnInput: (e, name) => {
+      if (name === "transactionType") {
+        setUnitTransaction({
+          ...unitTransaction,
+          [name]: e.target.value as TransactionType,
+        });
+      }
+      if (name === "volume") {
+        setUnitTransaction({
+          ...unitTransaction,
+          [name]: 100 * Number(e.target.value),
+        });
+      }
+    },
+    handleClickOnBuyButton: () => {},
+    obj: unitTransaction,
+  };
+  useEffect(() => {}, [dateState]);
+
   const [isDisabledRightArrow, setIsDisabledRightArrow] =
     useState<boolean>(false);
   const handleKeyDownOnRightArrow = (e: KeyboardEvent) => {
@@ -86,9 +123,15 @@ export function TopPage() {
   }
 
   return (
-    <div className="flex w-full h-[90]">
+    <div className="flex h-[90] w-full">
       <div className="flex w-1/2 items-center justify-center">
-        <SimulationStartPresenter inputHook={startSettingInputHook} />
+        {!isStart && (
+          <SimulationStartPresenter
+            inputHook={startSettingInputHook}
+            handleClickOnStartButton={handleClickOnStartButton}
+          />
+        )}
+        {isStart && <SimulationPresenter simulationHook={simulationHook} />}
       </div>
       <div className="w-1/2">
         <div>

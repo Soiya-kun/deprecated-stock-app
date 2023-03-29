@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import { noError } from "@/domains/errorObject";
 import { validateByKey, Validations } from "@/domains/validationObject";
 
 export type ImportanceLabel = "必須" | "任意" | "";
@@ -7,7 +8,7 @@ export type ImportanceLabel = "必須" | "任意" | "";
 export type Props<T> = {
   name: keyof T;
   obj: T;
-  validations: Validations<T>;
+  validations?: Validations<T>;
   label: string;
   helpText?: string;
   htmlFor?: string;
@@ -32,7 +33,8 @@ export function TitleAndErrorFrame<T>({
   innerClassName,
   children,
 }: Props<T>) {
-  const validationResult = validateByKey(obj, name, validations);
+  const validationResult =
+    validations != null ? validateByKey(obj, name, validations) : noError();
 
   return (
     <div className={`mt-4 ${className}`}>

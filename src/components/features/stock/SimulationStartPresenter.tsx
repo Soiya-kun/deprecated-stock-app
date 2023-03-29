@@ -22,30 +22,41 @@ type Props = {
       name: keyof StartingSetting,
       type?: HTMLInputTypeAttribute,
     ) => void;
-    validations: Validations<StartingSetting>;
+    validations?: Validations<StartingSetting>;
   };
+  handleClickOnStartButton: () => void;
 };
 
-export function SimulationStartPresenter({ inputHook }: Props) {
+export function SimulationStartPresenter({
+  inputHook,
+  handleClickOnStartButton,
+}: Props) {
   return (
     <div className="flex flex-col justify-center">
       <p>金額と日付を決めてシミュレーション開始！</p>
       <InputWithTitleAndError
+        className="w-full"
         innerClassName="flex items-center"
+        inputClassName="w-auto"
         inputHook={inputHook}
         label="金額"
         name="startingAmount"
         type="number"
       >
-        <p className="mx-4">円</p>
+        <p className="mx-4 w-max">万円</p>
       </InputWithTitleAndError>
       <InputWithTitleAndError
+        className="w-full"
         inputHook={inputHook}
         label="日付"
         name="startingDate"
         type="date"
       />
-      <ButtonWithError variant="primary" className="mx-auto mt-8">
+      <ButtonWithError
+        variant="primary"
+        className="mx-auto mt-8"
+        onClick={handleClickOnStartButton}
+      >
         シミュレーション開始
       </ButtonWithError>
     </div>

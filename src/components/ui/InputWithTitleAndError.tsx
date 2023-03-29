@@ -14,7 +14,7 @@ export type InputHook<T> = {
     name: keyof T,
     type?: HTMLInputTypeAttribute,
   ) => void;
-  validations: Validations<T>;
+  validations?: Validations<T>;
 };
 
 export type Props<T> = {
