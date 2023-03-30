@@ -41,16 +41,20 @@ export function DayChartPresenter({
         series: {
           1: {
             type: "line",
+            color: "red",
           },
           2: {
             type: "line",
+            color: "green",
           },
           3: {
             type: "line",
+            color: "yellow",
           },
           4: {
             type: "bars",
             targetAxisIndex: 1,
+            color: "blue",
           },
         },
         vAxes: {
@@ -83,6 +87,7 @@ export function WeekChartPresenter({
     getChart: () => chartRef.current,
   }));
 
+  console.log("maxVolume", props.maxVolume);
   return (
     <Chart
       chartType="ComboChart"
@@ -95,12 +100,15 @@ export function WeekChartPresenter({
           1: {
             type: "bars",
             targetAxisIndex: 1,
+            color: "blue",
           },
           2: {
             type: "line",
+            color: "red",
           },
           3: {
             type: "line",
+            color: "green",
           },
         },
         vAxes: {

@@ -11,7 +11,6 @@ export type DateState = {
   dayCount: number;
   dayBeforeCount: number;
   weekCount: number;
-  weekBeforeCount: number;
 };
 
 type Props = {
@@ -31,6 +30,7 @@ export const chartHook = ({
   chartDataWeek: GraphValue[];
   maxVolumeInSvWeek: number;
   currentValue: number;
+  currentDate: string;
 } => {
   const minDate = useMemo(() => {
     if (stocks.length === 0) return "";
@@ -39,10 +39,9 @@ export const chartHook = ({
 
   const svDay = useMemo(() => stockValueWithMa({ stocks }), [stocks]);
 
-  const currentValue =
-    svDay[dateState.dayCount + dateState.dayBeforeCount] !== undefined
-      ? Number(svDay[dateState.dayCount + dateState.dayBeforeCount - 1][3])
-      : 0;
+  const currentStock = svDay[dateState.dayCount + dateState.dayBeforeCount];
+  const currentValue = currentStock !== undefined ? Number(currentStock[3]) : 0;
+  const currentDate = currentStock !== undefined ? String(currentStock[0]) : "";
 
   const chartData = useMemo(
     () =>
@@ -72,9 +71,10 @@ export const chartHook = ({
     const ret = chartData.slice(1).sort((a, b) => Number(b[8]) - Number(a[8]));
     if (ret.length === 0) return 0;
     return Number(ret[0][8]);
-  }, [svDay]);
+  }, [chartData]);
 
   const svWeek = useMemo(() => stockValueWeekWithMa({ stocks }), [stocks]);
+  const weekBeforeCount = svWeek.findIndex((v) => v[0] >= currentDate);
   const chartDataWeek = useMemo(
     () =>
       (
@@ -82,12 +82,9 @@ export const chartHook = ({
           ["Date", "High", "Open", "Close", "Low", "volume", "ma13", "ma26"],
         ] as GraphValue[]
       ).concat(
-        svWeek.slice(
-          dateState.weekBeforeCount,
-          dateState.weekCount + dateState.weekBeforeCount,
-        ),
+        svWeek.slice(weekBeforeCount - dateState.weekCount, weekBeforeCount),
       ),
-    [svWeek, dateState.weekBeforeCount, dateState.weekCount],
+    [svWeek, weekBeforeCount, dateState.weekCount],
   );
   const maxVolumeInSvWeek: number = useMemo(() => {
     const ret = chartDataWeek
@@ -95,7 +92,7 @@ export const chartHook = ({
       .sort((a, b) => Number(b[5]) - Number(a[5]));
     if (ret.length === 0) return 0;
     return Number(ret[0][5]);
-  }, [svWeek]);
+  }, [chartDataWeek]);
 
   return {
     minDate,
@@ -106,5 +103,6 @@ export const chartHook = ({
     chartDataWeek,
     maxVolumeInSvWeek,
     currentValue,
+    currentDate,
   };
 };

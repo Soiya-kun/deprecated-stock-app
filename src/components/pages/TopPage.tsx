@@ -49,7 +49,6 @@ export function TopPage() {
     dayCount: 60,
     dayBeforeCount: 0,
     weekCount: 12,
-    weekBeforeCount: 0,
   });
 
   const ch = chartHook({ stocks: findStocksHook.ret, dateState });
@@ -117,7 +116,8 @@ export function TopPage() {
         tradeTransactions: [
           ...simulation.tradeTransactions,
           {
-            ...unitTransaction,
+            volume: unitTransaction.volume,
+            date: new Date(ch.currentDate),
             transactionType: type,
             unitValue: ch.currentValue,
           },
@@ -126,17 +126,6 @@ export function TopPage() {
     },
     obj: unitTransaction,
   };
-  useEffect(() => {
-    const stock =
-      findStocksHook.ret[dateState.dayBeforeCount + dateState.weekBeforeCount];
-    if (stock === undefined) return;
-    setUnitTransaction({
-      date: new Date(stock.bDate),
-      transactionType: unitTransaction.transactionType,
-      unitValue: stock.closedPrice,
-      volume: 100,
-    });
-  }, [dateState]);
 
   const handleKeyDownOnRightArrow = (e: KeyboardEvent) => {
     if (e.key === "ArrowRight") {
