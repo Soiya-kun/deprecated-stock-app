@@ -97,6 +97,16 @@ export const stockValueWeekWithMa = (props: {
     lastStock = stock;
     volume += stock.volume;
   });
+  res.push([
+    `${firstDateOfMonday.getFullYear()}-${
+      firstDateOfMonday.getMonth() + 1
+    }-${firstDateOfMonday.getDate()}`,
+    highPrice,
+    openedPrice,
+    lastStock.closedPrice,
+    lowPrice,
+    volume,
+  ]);
 
   res = res.map((data: GraphValue, index: number, array: GraphValue[]) =>
     data.concat(getMaByStockValue(array, index, 13)),

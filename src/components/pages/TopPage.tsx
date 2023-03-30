@@ -48,7 +48,7 @@ export function TopPage() {
   const [dateState, setDateState] = useState<DateState>({
     dayCount: 60,
     dayBeforeCount: 0,
-    weekCount: 12,
+    weekCount: 24,
   });
 
   const ch = chartHook({ stocks: findStocksHook.ret, dateState });

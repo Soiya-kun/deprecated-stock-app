@@ -23,7 +23,6 @@ export function DayChartPresenter({
   props: GoogleChartProps;
   ref: Ref<GoogleChartRef>;
 }) {
-  console.log(props);
   const chartRef = useRef<Chart>(null);
   useImperativeHandle(ref, () => ({
     getChart: () => chartRef.current,
@@ -66,8 +65,8 @@ export function DayChartPresenter({
           },
         },
         chartArea: {
-          left: "15%",
-          width: "70%",
+          left: "10%",
+          width: "80%",
         },
       }}
     />
@@ -86,8 +85,6 @@ export function WeekChartPresenter({
   useImperativeHandle(ref, () => ({
     getChart: () => chartRef.current,
   }));
-
-  console.log("maxVolume", props.maxVolume);
   return (
     <Chart
       chartType="ComboChart"
@@ -120,8 +117,8 @@ export function WeekChartPresenter({
           },
         },
         chartArea: {
-          left: "15%",
-          width: "70%",
+          left: "10%",
+          width: "80%",
         },
       }}
     />

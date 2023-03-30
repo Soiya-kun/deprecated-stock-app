@@ -68,28 +68,33 @@ export const chartHook = ({
     [svDay, dateState.dayBeforeCount, dateState.dayCount],
   );
   const maxVolumeInSvDay: number = useMemo(() => {
-    const ret = chartData.slice(1).sort((a, b) => Number(b[8]) - Number(a[8]));
+    const ret = chartData.slice(1);
+    ret.sort((a, b) => Number(b[8]) - Number(a[8]));
     if (ret.length === 0) return 0;
     return Number(ret[0][8]);
   }, [chartData]);
 
-  const svWeek = useMemo(() => stockValueWeekWithMa({ stocks }), [stocks]);
-  const weekBeforeCount = svWeek.findIndex((v) => v[0] >= currentDate);
+  const svWeek = useMemo(
+    () =>
+      stockValueWeekWithMa({
+        stocks: stocks.slice(0, dateState.dayCount + dateState.dayBeforeCount),
+      }),
+    [stocks, dateState.dayBeforeCount, dateState.dayCount],
+  );
+  console.log(svWeek);
+
   const chartDataWeek = useMemo(
     () =>
       (
         [
           ["Date", "High", "Open", "Close", "Low", "volume", "ma13", "ma26"],
         ] as GraphValue[]
-      ).concat(
-        svWeek.slice(weekBeforeCount - dateState.weekCount, weekBeforeCount),
-      ),
-    [svWeek, weekBeforeCount, dateState.weekCount],
+      ).concat(svWeek),
+    [svWeek, dateState.weekCount],
   );
   const maxVolumeInSvWeek: number = useMemo(() => {
-    const ret = chartDataWeek
-      .slice(1)
-      .sort((a, b) => Number(b[5]) - Number(a[5]));
+    const ret = chartDataWeek.slice(1);
+    ret.sort((a, b) => Number(b[5]) - Number(a[5]));
     if (ret.length === 0) return 0;
     return Number(ret[0][5]);
   }, [chartDataWeek]);
