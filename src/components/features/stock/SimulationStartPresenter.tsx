@@ -25,11 +25,13 @@ type Props = {
     validations?: Validations<StartingSetting>;
   };
   handleClickOnStartButton: () => void;
+  minDate: string;
 };
 
 export function SimulationStartPresenter({
   inputHook,
   handleClickOnStartButton,
+  minDate,
 }: Props) {
   return (
     <div className="flex flex-col justify-center">
@@ -51,6 +53,7 @@ export function SimulationStartPresenter({
         label="日付"
         name="startingDate"
         type="date"
+        min={minDate}
       />
       <ButtonWithError
         variant="primary"

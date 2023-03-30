@@ -27,8 +27,10 @@ export const mockStock = (index: number, openPrice: number): Stock => ({
 
 export const useMockStockAPI = (): StockAPI => ({
   async getStocks(stockCode: string): Promise<Stock[]> {
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     let prev = 500;
-    return Array(100000)
+    return Array(1000)
       .fill(0)
       .map((_, i) => {
         const ret = mockStock(i, prev);

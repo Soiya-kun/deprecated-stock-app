@@ -2,7 +2,12 @@ import { ReactNode, useState } from "react";
 
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 
-type Variant = "primary" | "secondary" | "delete";
+type Variant =
+  | "primary"
+  | "primaryOutlined"
+  | "secondary"
+  | "secondaryOutlined"
+  | "delete";
 
 export type Props = {
   block?: boolean;
@@ -23,8 +28,10 @@ export function Button({
 }: Props): JSX.Element {
   // eslint-disable-next-line no-unused-vars
   const Variants: { [key in Variant]: string } = {
-    primary: "text-white bg-primary",
-    secondary: "text-gray-600 border-gray-300 border",
+    primary: "text-white bg-primary border-primary border",
+    primaryOutlined: "text-primary border-primary border",
+    secondary: "text-white bg-secondary border-secondary border",
+    secondaryOutlined: "text-secondary border-secondary border",
     delete: "text-white bg-red-500",
   };
 

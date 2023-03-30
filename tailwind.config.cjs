@@ -7,6 +7,9 @@ module.exports = {
           DEFAULT: "#ffb300",
           dark: "#CD9000",
         },
+        secondary: {
+　        DEFAULT: "#0078d4",
+        }
       },
       animation: {
         "fade-in": "fade-in 0.2s linear   both",

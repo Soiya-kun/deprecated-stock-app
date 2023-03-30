@@ -29,6 +29,7 @@ export type Props<T> = {
   inputClassName?: string;
   label: string;
   maxLength?: number;
+  min?: number | string;
   name: keyof T;
   onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -49,6 +50,7 @@ export function InputWithTitleAndError<T>({
   inputClassName,
   label,
   maxLength,
+  min,
   name,
   onBlur,
   placeholder,
@@ -73,6 +75,7 @@ export function InputWithTitleAndError<T>({
         disabled={disabled}
         id={id}
         maxLength={maxLength}
+        min={min}
         name={String(name)}
         onBlur={onBlur}
         onChange={(e) => inputHook.handleChangeOnInput(e, name, type)}

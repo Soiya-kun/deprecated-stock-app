@@ -47,6 +47,7 @@ export const useFindFirstByQuery = <T>(
   };
 
   useEffect(() => {
+    console.log("useFindFirstByQuery: useEffect");
     find();
   }, []);
 
