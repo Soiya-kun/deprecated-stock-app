@@ -13,6 +13,7 @@ import {
   GoogleChartRef,
   WeekChartPresenter,
 } from "@/components/features/chart/ChartPresenter";
+import { ChartSituationPresenter } from "@/components/features/chart/ChartSituationPresenter";
 import {
   SimulationHookType,
   SimulationPresenter,
@@ -24,6 +25,17 @@ import {
 } from "@/components/features/stock/SimulationStartPresenter";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
+import {
+  ma20CrossMa60,
+  ma20Direction,
+  ma5CrossMa20,
+  ma5CrossMa60,
+  ma5Direction,
+  ma60Direction,
+  wma13CrossWma26,
+  wma13Direction,
+  wma26Direction,
+} from "@/domains/ChartSituation/computed";
 import {
   newSimulation,
   newUnitTransaction,
@@ -165,7 +177,7 @@ export function TopPage() {
 
   return (
     <div className="flex h-[90] w-full">
-      <div className="flex w-1/2 items-center justify-center">
+      <div className="flex w-1/2 flex-col items-center justify-center">
         {!isStart && (
           <SimulationStartPresenter
             inputHook={startSettingInputHook}
@@ -174,11 +186,28 @@ export function TopPage() {
           />
         )}
         {isStart && (
-          <SimulationPresenter
-            simulationHook={simulationHook}
-            simulation={simulation}
-            currentValue={ch.currentValue}
-          />
+          <>
+            <ChartSituationPresenter
+              chartData={ch.chartData}
+              chartDataWeek={ch.chartDataWeek}
+              funcs={[
+                ma5Direction,
+                ma20Direction,
+                ma60Direction,
+                wma13Direction,
+                wma26Direction,
+                ma5CrossMa20,
+                ma5CrossMa60,
+                ma20CrossMa60,
+                wma13CrossWma26,
+              ]}
+            />
+            <SimulationPresenter
+              simulationHook={simulationHook}
+              simulation={simulation}
+              currentValue={ch.currentValue}
+            />
+          </>
         )}
       </div>
       <div className="w-1/2">

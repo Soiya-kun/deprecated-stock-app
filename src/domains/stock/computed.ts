@@ -1,6 +1,25 @@
 import { Stock } from "@/domains/stock/dto";
 
+// day ["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60", "volume"]
+// week ["Date", "High", "Open", "Close", "Low", "ma13", "ma26", "volume"]
 export type GraphValue = (string | number)[];
+
+export const getDayHigh = (gv: GraphValue): number => Number(gv[1]);
+export const getDayOpen = (gv: GraphValue): number => Number(gv[2]);
+export const getDayClose = (gv: GraphValue): number => Number(gv[3]);
+export const getDayLow = (gv: GraphValue): number => Number(gv[4]);
+export const getDayMa5 = (gv: GraphValue): number => Number(gv[5]);
+export const getDayMa20 = (gv: GraphValue): number => Number(gv[6]);
+export const getDayMa60 = (gv: GraphValue): number => Number(gv[7]);
+export const getDayVolume = (gv: GraphValue): number => Number(gv[8]);
+
+export const getWeekHigh = (gv: GraphValue): number => Number(gv[1]);
+export const getWeekOpen = (gv: GraphValue): number => Number(gv[2]);
+export const getWeekClose = (gv: GraphValue): number => Number(gv[3]);
+
+export const getWeekLow = (gv: GraphValue): number => Number(gv[4]);
+export const getWeekMa13 = (gv: GraphValue): number => Number(gv[5]);
+export const getWeekMa26 = (gv: GraphValue): number => Number(gv[6]);
 
 const getMa = (stocks: Stock[], index: number, length: number): number => {
   if (index < length) {
@@ -25,7 +44,7 @@ const getMaByStockValue = (
   return (
     stockValues
       .slice(index - length + 1, index + 1)
-      .map((s: GraphValue) => Number(s[3]))
+      .map((s: GraphValue) => Number(getDayClose(s)))
       .reduce((sum: number, closedPrice: number) => sum + closedPrice) / length
   );
 };
