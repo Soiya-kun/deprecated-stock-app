@@ -7,7 +7,7 @@ export function DefaultLayout() {
   return (
     <div className="flex h-screen w-full flex-row bg-gray-50">
       <HeaderContainer />
-      <main className="mx-auto mt-20 w-full overflow-y-auto text-gray-600">
+      <main className="mx-auto mt-16 w-full overflow-y-auto p-4 text-gray-600">
         <Outlet />
         <Alert />
       </main>

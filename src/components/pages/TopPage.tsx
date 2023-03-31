@@ -221,7 +221,7 @@ export function TopPage() {
     <div className="flex overflow-x-auto">
       <DayChart
         ref={dayChartRef}
-        props={{ ...dayChartProps, className: "w-screen" }}
+        props={{ ...dayChartProps, className: "w-full", height: "75vh" }}
       />
     </div>
   );
