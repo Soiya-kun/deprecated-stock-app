@@ -81,7 +81,6 @@ export const chartHook = ({
       }),
     [stocks, dateState.dayBeforeCount, dateState.dayCount],
   );
-  console.log(svWeek);
 
   const chartDataWeek = useMemo(
     () =>
@@ -89,7 +88,7 @@ export const chartHook = ({
         [
           ["Date", "High", "Open", "Close", "Low", "volume", "ma13", "ma26"],
         ] as GraphValue[]
-      ).concat(svWeek),
+      ).concat(svWeek.slice(-dateState.weekCount)),
     [svWeek, dateState.weekCount],
   );
   const maxVolumeInSvWeek: number = useMemo(() => {

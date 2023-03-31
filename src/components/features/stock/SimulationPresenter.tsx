@@ -2,14 +2,13 @@ import { ChangeEvent } from "react";
 
 import { ButtonWithError } from "@/components/ui/ButtonWithError";
 import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
-import { transactionResult } from "@/domains/stockTransaction/computed";
 import {
   Simulation,
   TransactionType,
   UnitTransaction,
 } from "@/domains/stockTransaction/dto";
 
-export type SimulationHook = {
+export type SimulationHookType = {
   obj: UnitTransaction;
   handleChangeOnInput: (
     e: ChangeEvent<HTMLInputElement>,
@@ -19,7 +18,7 @@ export type SimulationHook = {
 };
 
 type Props = {
-  simulationHook: SimulationHook;
+  simulationHook: SimulationHookType;
   simulation: Simulation;
   currentValue: number;
 };
@@ -40,8 +39,6 @@ export function SimulationPresenter({
         </div>
       ))}
       <p>currentValue: {currentValue}円</p>
-      <p>long: {transactionResult(simulation, currentValue)}</p>
-      <p>short: {transactionResult(simulation, currentValue)}</p>
       <InputWithTitleAndError
         className="w-full"
         innerClassName="flex items-center"

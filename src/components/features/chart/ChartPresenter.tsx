@@ -57,15 +57,21 @@ export function DayChartPresenter({
           },
         },
         vAxes: {
-          0: { title: "円" },
+          0: {
+            title: "円",
+          },
           1: {
-            title: "株",
+            // 株の取引ボリューム
             minValue: 0,
             maxValue: props.maxVolume * 4,
+            gridlines: {
+              color: "transparent", // これにより、縦軸の横線が消えます
+            },
+            textColor: "transparent", // これにより、縦軸の数字が消えます
           },
         },
         chartArea: {
-          left: "10%",
+          left: "15%",
           width: "80%",
         },
       }}
@@ -111,13 +117,17 @@ export function WeekChartPresenter({
         vAxes: {
           0: { title: "円" },
           1: {
-            title: "株",
+            // 株の取引ボリューム
             minValue: 0,
             maxValue: props.maxVolume * 4,
+            gridlines: {
+              color: "transparent", // これにより、縦軸の横線が消えます
+            },
+            textColor: "transparent", // これにより、縦軸の数字が消えます
           },
         },
         chartArea: {
-          left: "10%",
+          left: "15%",
           width: "80%",
         },
       }}

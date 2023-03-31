@@ -14,7 +14,7 @@ import {
   WeekChartPresenter,
 } from "@/components/features/chart/ChartPresenter";
 import {
-  SimulationHook,
+  SimulationHookType,
   SimulationPresenter,
 } from "@/components/features/stock/SimulationPresenter";
 import {
@@ -101,7 +101,7 @@ export function TopPage() {
   const [unitTransaction, setUnitTransaction] = useState<UnitTransaction>(
     newUnitTransaction(),
   );
-  const simulationHook: SimulationHook = {
+  const simulationHook: SimulationHookType = {
     handleChangeOnInput: (e, name) => {
       if (name === "volume") {
         setUnitTransaction({
