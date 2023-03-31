@@ -11,14 +11,12 @@ export function HeaderPresenter() {
   const { showMode } = useBreakPointContext();
   const { isLoggedIn } = useAuthContext();
   return (
-    <div className="fixed z-10 flex h-16 w-full items-center border-b border-gray-300 bg-secondary text-sm ph-in:px-4 ph-out:px-12">
-      {showMode === "ph-out" && (
+    <div className="fixed z-10 flex h-16 w-full items-center border-b border-gray-300 bg-secondary text-sm phone:px-4 pc:px-12">
+      {showMode === "pc" && (
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center">
-            <Link to="/" className="mr-8 block h-12">
-              <Logo />
-            </Link>
-          </div>
+          <Link to="/" className="mr-8 block h-12">
+            <Logo />
+          </Link>
           <div className="flex items-center">
             {!isLoggedIn && (
               <>
@@ -37,10 +35,10 @@ export function HeaderPresenter() {
           </div>
         </div>
       )}
-      {showMode === "ph-in" && (
+      {showMode === "phone" && (
         <div className="flex w-full items-center justify-between">
           <HamburgerMenuForPhone />
-          <Link to="/">
+          <Link to="/" className="mr-2 h-12">
             <Logo />
           </Link>
         </div>

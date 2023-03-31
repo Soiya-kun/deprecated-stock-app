@@ -8,7 +8,7 @@ type Props = {
 export function TitleLarge({ label, className }: Props) {
   return (
     <h1
-      className={`font-bold text-primary ph-in:text-xl ph-out:text-2xl ${className}`}
+      className={`font-bold text-primary phone:text-xl pc:text-2xl ${className}`}
     >
       {label}
     </h1>

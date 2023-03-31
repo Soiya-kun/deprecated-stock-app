@@ -27,7 +27,7 @@ export function HamburgerMenuForPhone({ className = "" }: Props) {
           switchIsOpened(!isOpened);
         }}
       >
-        <IoMdMenu className="h-8 w-8 cursor-pointer" />
+        <IoMdMenu className="h-8 w-8 cursor-pointer text-primary" />
       </button>
       {isOpened && (
         <HeaderMenuForPhone

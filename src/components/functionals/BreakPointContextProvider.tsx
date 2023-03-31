@@ -9,13 +9,13 @@ import {
 } from "react";
 
 type BreakPointType = {
-  showMode: "ph-in" | "ph-out";
+  showMode: "phone" | "pc";
 };
 
 /** 本当は tailwind の config から breakpoint を引っ張ってくることが望ましい */
-const getShowMode = (width: number) => (width >= 640 ? "ph-out" : "ph-in");
+const getShowMode = (width: number) => (width >= 1000 ? "pc" : "phone");
 
-const BreakPointContext = createContext<BreakPointType>({ showMode: "ph-in" });
+const BreakPointContext = createContext<BreakPointType>({ showMode: "phone" });
 
 export function BreakPointContextProvider({
   children,

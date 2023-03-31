@@ -23,6 +23,7 @@ import {
   SimulationStartPresenter,
   StartingSetting,
 } from "@/components/features/stock/SimulationStartPresenter";
+import { useBreakPointContext } from "@/components/functionals/BreakPointContextProvider";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import {
@@ -175,7 +176,8 @@ export function TopPage() {
     return <SixDotsScaleMiddle />;
   }
 
-  return (
+  const { showMode } = useBreakPointContext();
+  return showMode === "pc" ? (
     <div className="flex h-[90] w-full">
       <div className="flex w-1/2 flex-col items-center justify-center">
         {!isStart && (
@@ -214,6 +216,13 @@ export function TopPage() {
         <DayChart ref={dayChartRef} props={dayChartProps} />
         <WeekChart ref={weekChartRef} props={weekChartProps} />
       </div>
+    </div>
+  ) : (
+    <div className="flex overflow-x-auto">
+      <DayChart
+        ref={dayChartRef}
+        props={{ ...dayChartProps, className: "w-screen" }}
+      />
     </div>
   );
 }

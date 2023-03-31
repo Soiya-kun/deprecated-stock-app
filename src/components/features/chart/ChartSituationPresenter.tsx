@@ -12,11 +12,11 @@ export function ChartSituationPresenter({
   chartDataWeek,
   funcs,
 }: Props) {
-  const ret = funcs.map((f) => {
+  const ret = funcs.map((f, i) => {
     const res = f(chartData, chartDataWeek);
     return res.message === "" ? null : (
       <p
-        key={res.message}
+        key={`chartSituation${String(i)}`}
         className={`mr-2 rounded-full p-1.5
             ${res.direction === true && "bg-green-500"}
             ${res.direction === false && "bg-red-500"}            

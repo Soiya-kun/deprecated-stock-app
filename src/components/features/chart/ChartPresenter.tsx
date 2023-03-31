@@ -5,6 +5,7 @@ import { GraphValue } from "@/domains/stock/computed";
 
 // GoogleChart の型を定義します。
 interface GoogleChartProps {
+  className?: string;
   width?: string;
   height?: string;
   data: GraphValue[];
@@ -30,6 +31,7 @@ export function DayChartPresenter({
 
   return (
     <Chart
+      className={props.className}
       ref={chartRef}
       chartType="ComboChart"
       width={props.width ?? "100%"}
@@ -57,7 +59,7 @@ export function DayChartPresenter({
           4: {
             type: "bars",
             targetAxisIndex: 1,
-            color: "blue",
+            color: "#01104f",
           },
         },
         vAxes: {
@@ -97,17 +99,22 @@ export function WeekChartPresenter({
   }));
   return (
     <Chart
+      className={props.className}
       chartType="ComboChart"
       width={props.width ?? "100%"}
       height={props.height ?? "400px"}
       data={props.data}
       options={{
         seriesType: "candlesticks",
+        candlestick: {
+          fallingColor: { strokeWidth: 0, fill: "#EF4444" }, // red
+          risingColor: { strokeWidth: 0, fill: "#22C55E" }, // green
+        },
         series: {
           1: {
             type: "bars",
             targetAxisIndex: 1,
-            color: "blue",
+            color: "#01104f",
           },
           2: {
             type: "line",

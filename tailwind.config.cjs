@@ -25,8 +25,8 @@ module.exports = {
       },
     },
     screens: {
-      "ph-in": { max: "40rem" },
-      "ph-out": { min: "40rem" },
+      "phone": { max: "60rem" },
+      "pc": { min: "60rem" },
     },
     minHeight: {
       content: "calc(100vh - 13rem)",
