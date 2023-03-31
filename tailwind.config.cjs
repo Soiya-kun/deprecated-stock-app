@@ -4,11 +4,10 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#ffb300",
-          dark: "#CD9000",
+          DEFAULT: "#f8a070",
         },
         secondary: {
-　        DEFAULT: "#0078d4",
+　        DEFAULT: "#01104f",
         }
       },
       animation: {

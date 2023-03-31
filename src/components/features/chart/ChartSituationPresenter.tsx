@@ -18,8 +18,8 @@ export function ChartSituationPresenter({
       <p
         key={res.message}
         className={`mr-2 rounded-full p-1.5
-            ${res.direction === true && "bg-green-400"}
-            ${res.direction === false && "bg-red-400"}            
+            ${res.direction === true && "bg-green-500"}
+            ${res.direction === false && "bg-red-500"}            
             `}
       >
         {f(chartData, chartDataWeek).message}

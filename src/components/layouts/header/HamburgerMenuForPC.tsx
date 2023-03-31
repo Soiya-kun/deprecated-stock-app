@@ -33,10 +33,9 @@ export function HamburgerMenuForPC({ className = "" }: Props) {
   return (
     <div className={`relative ${className}`} ref={ref}>
       <button
+        className="text-primary"
         type="button"
-        onClick={() => {
-          switchIsOpened(!isOpened);
-        }}
+        onClick={() => switchIsOpened(!isOpened)}
       >
         <IoMdMenu className="h-8 w-8 cursor-pointer" />
       </button>

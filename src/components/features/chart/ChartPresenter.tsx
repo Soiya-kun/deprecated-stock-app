@@ -37,6 +37,10 @@ export function DayChartPresenter({
       data={props.data}
       options={{
         seriesType: "candlesticks",
+        candlestick: {
+          fallingColor: { strokeWidth: 0, fill: "#EF4444" }, // red
+          risingColor: { strokeWidth: 0, fill: "#22C55E" }, // green
+        },
         series: {
           1: {
             type: "line",
@@ -48,7 +52,7 @@ export function DayChartPresenter({
           },
           3: {
             type: "line",
-            color: "yellow",
+            color: "#e8a070",
           },
           4: {
             type: "bars",
