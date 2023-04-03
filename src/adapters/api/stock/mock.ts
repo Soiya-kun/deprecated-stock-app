@@ -9,8 +9,8 @@ export const mockBDate = (index: number): string => {
 
 export const mockStock = (index: number, openPrice: number): Stock => ({
   sc: "1234",
-  name: "mock",
-  market: "mock",
+  name: "ソフトバンク",
+  market: "東証一部",
   industry: "mock",
   bDate: mockBDate(index),
   // +-50の範囲にする

@@ -2,12 +2,14 @@ import { Result } from "@/domains/ChartSituation/computed";
 import { GraphValue } from "@/domains/stock/computed";
 
 type Props = {
+  className?: string;
   chartData: GraphValue[];
   chartDataWeek: GraphValue[];
   funcs: ((svDay: GraphValue[], svWeek: GraphValue[]) => Result)[];
 };
 
 export function ChartSituationPresenter({
+  className = "",
   chartData,
   chartDataWeek,
   funcs,
@@ -26,5 +28,5 @@ export function ChartSituationPresenter({
       </p>
     );
   });
-  return <div className="flex flex-wrap">{ret}</div>;
+  return <div className={`flex flex-wrap ${className}`}>{ret}</div>;
 }

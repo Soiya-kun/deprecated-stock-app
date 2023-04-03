@@ -11,6 +11,7 @@ export type UnitTransaction = {
   date: Date;
   unitValue: number;
   volume: number;
+  memo: string;
 };
 
 export const newUnitTransaction = (): UnitTransaction => ({
@@ -18,6 +19,7 @@ export const newUnitTransaction = (): UnitTransaction => ({
   transactionType: "LongBuy",
   unitValue: 0,
   volume: 0,
+  memo: "",
 });
 
 export type Simulation = {

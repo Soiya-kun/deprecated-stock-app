@@ -34,12 +34,12 @@ export const chartHook = ({
 } => {
   const minDate = useMemo(() => {
     if (stocks.length === 0) return "";
-    return stocks[0].bDate;
+    return stocks[dateState.dayCount].bDate;
   }, [stocks]);
 
   const svDay = useMemo(() => stockValueWithMa({ stocks }), [stocks]);
 
-  const currentStock = svDay[dateState.dayCount + dateState.dayBeforeCount];
+  const currentStock = svDay[dateState.dayCount + dateState.dayBeforeCount - 1];
   const currentValue = currentStock !== undefined ? Number(currentStock[3]) : 0;
   const currentDate = currentStock !== undefined ? String(currentStock[0]) : "";
 

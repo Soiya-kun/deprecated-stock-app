@@ -1,4 +1,4 @@
-import { Stock } from "@/domains/stock/dto";
+import { Stock, StockInfo } from "@/domains/stock/dto";
 
 // day ["Date", "High", "Open", "Close", "Low", "ma5", "ma20", "ma60", "volume"]
 // week ["Date", "High", "Open", "Close", "Low", "ma13", "ma26", "volume"]
@@ -135,3 +135,21 @@ export const stockValueWeekWithMa = (props: {
   );
   return res;
 };
+
+export const stockInfo = (
+  todayStock: Stock,
+  yesterdayStock: Stock,
+): StockInfo => ({
+  industry: todayStock.industry,
+  market: todayStock.market,
+  name: todayStock.name,
+  sc: todayStock.sc,
+  closedPrice: todayStock.closedPrice,
+  diffFromYesterday: todayStock.closedPrice - yesterdayStock.closedPrice,
+  diffFromYesterdayPercent:
+    Math.floor(
+      ((todayStock.closedPrice - yesterdayStock.closedPrice) /
+        yesterdayStock.closedPrice) *
+        1000,
+    ) / 10,
+});

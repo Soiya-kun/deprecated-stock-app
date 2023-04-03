@@ -35,7 +35,7 @@ export function DayChartPresenter({
       ref={chartRef}
       chartType="ComboChart"
       width={props.width ?? "100%"}
-      height={props.height ?? "400px"}
+      height={props.height ?? "40vh"}
       data={props.data}
       options={{
         seriesType: "candlesticks",
@@ -102,7 +102,7 @@ export function WeekChartPresenter({
       className={props.className}
       chartType="ComboChart"
       width={props.width ?? "100%"}
-      height={props.height ?? "400px"}
+      height={props.height ?? "40vh"}
       data={props.data}
       options={{
         seriesType: "candlesticks",

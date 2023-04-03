@@ -23,6 +23,7 @@ import {
   SimulationStartPresenter,
   StartingSetting,
 } from "@/components/features/stock/SimulationStartPresenter";
+import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
 import { useBreakPointContext } from "@/components/functionals/BreakPointContextProvider";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
@@ -37,6 +38,7 @@ import {
   wma13Direction,
   wma26Direction,
 } from "@/domains/ChartSituation/computed";
+import { stockInfo } from "@/domains/stock/computed";
 import {
   newSimulation,
   newUnitTransaction,
@@ -122,6 +124,12 @@ export function TopPage() {
           [name]: Number(e.target.value) * 100,
         });
       }
+      if (name === "memo") {
+        setUnitTransaction({
+          ...unitTransaction,
+          [name]: e.target.value,
+        });
+      }
     },
     handleClickOnTradeButton: (type) => {
       setSimulation({
@@ -133,6 +141,7 @@ export function TopPage() {
             date: new Date(ch.currentDate),
             transactionType: type,
             unitValue: ch.currentValue,
+            memo: "",
           },
         ],
       });
@@ -179,7 +188,11 @@ export function TopPage() {
   const { showMode } = useBreakPointContext();
   return showMode === "pc" ? (
     <div className="flex h-[90] w-full">
-      <div className="flex w-1/2 flex-col items-center justify-center">
+      <div
+        className={`w-1/2 flex-col items-center justify-center pr-4 ${
+          isStart ? "" : "flex"
+        }`}
+      >
         {!isStart && (
           <SimulationStartPresenter
             inputHook={startSettingInputHook}
@@ -189,7 +202,18 @@ export function TopPage() {
         )}
         {isStart && (
           <>
+            <StockInfoPresenter
+              stockInfo={stockInfo(
+                findStocksHook.ret[
+                  dateState.dayBeforeCount + dateState.dayCount - 1
+                ],
+                findStocksHook.ret[
+                  dateState.dayBeforeCount + dateState.dayCount - 2
+                ],
+              )}
+            />
             <ChartSituationPresenter
+              className="mt-4"
               chartData={ch.chartData}
               chartDataWeek={ch.chartDataWeek}
               funcs={[
@@ -207,7 +231,6 @@ export function TopPage() {
             <SimulationPresenter
               simulationHook={simulationHook}
               simulation={simulation}
-              currentValue={ch.currentValue}
             />
           </>
         )}

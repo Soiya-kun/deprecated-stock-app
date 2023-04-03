@@ -1,7 +1,9 @@
 import { ChangeEvent } from "react";
 
+import { TransactionTablePresenter } from "@/components/features/stock/TransactionTablePresenter";
 import { ButtonWithError } from "@/components/ui/ButtonWithError";
 import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
+import { TextAreaWithTitleAndError } from "@/components/ui/TextAreaWithTitleAndError";
 import {
   Simulation,
   TransactionType,
@@ -11,7 +13,7 @@ import {
 export type SimulationHookType = {
   obj: UnitTransaction;
   handleChangeOnInput: (
-    e: ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     name: keyof UnitTransaction,
   ) => void;
   handleClickOnTradeButton: (type: TransactionType) => void;
@@ -20,25 +22,12 @@ export type SimulationHookType = {
 type Props = {
   simulationHook: SimulationHookType;
   simulation: Simulation;
-  currentValue: number;
 };
 
-export function SimulationPresenter({
-  simulationHook,
-  simulation,
-  currentValue,
-}: Props) {
+export function SimulationPresenter({ simulationHook, simulation }: Props) {
   return (
     <div>
-      {simulation.tradeTransactions.map((tradeTransaction) => (
-        <div className="flex">
-          <p className="mr-4">date: {tradeTransaction.date.toISOString()}</p>
-          <p className="mr-4">value: {tradeTransaction.unitValue}</p>
-          <p className="mr-4">type: {tradeTransaction.transactionType}</p>
-          <p>volume: {tradeTransaction.volume}</p>
-        </div>
-      ))}
-      <p>currentValue: {currentValue}円</p>
+      <TransactionTablePresenter transactions={simulation.tradeTransactions} />
       <InputWithTitleAndError
         className="w-full"
         innerClassName="flex items-center"
@@ -76,6 +65,11 @@ export function SimulationPresenter({
           買戻
         </ButtonWithError>
       </div>
+      <TextAreaWithTitleAndError
+        textAreaHook={simulationHook}
+        label="メモ"
+        name="memo"
+      />
     </div>
   );
 }

@@ -14,3 +14,13 @@ export type Stock = {
   lowLimit: number;
   highLimit: number;
 };
+
+export type StockInfo = {
+  sc: string;
+  name: string;
+  market: string;
+  industry: string;
+  closedPrice: number;
+  diffFromYesterday: number;
+  diffFromYesterdayPercent: number;
+};
