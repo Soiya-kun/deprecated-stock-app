@@ -1,21 +1,17 @@
 import { Table } from "@/components/ui/table/Table";
 import { Td } from "@/components/ui/table/Td";
 import { Tr } from "@/components/ui/table/Tr";
-import { transactionResult } from "@/domains/stockTransaction/computed";
-import { Simulation } from "@/domains/stockTransaction/dto";
+import { SimulationResult } from "@/domains/stockTransaction/dto";
 
 type Props = {
   className?: string;
-  currentValue: number;
-  simulation: Simulation;
+  simulationResult: SimulationResult;
 };
 
 export function TransactionResultPresenter({
   className,
-  currentValue,
-  simulation,
+  simulationResult,
 }: Props) {
-  const result = transactionResult(simulation, currentValue);
   return (
     <div className={className}>
       <Table>
@@ -24,13 +20,15 @@ export function TransactionResultPresenter({
             <Td>ロング</Td>
             <Td>ショート</Td>
             <Td>合計資産</Td>
+            <Td>現金</Td>
           </Tr>
         </thead>
         <tbody>
           <Tr>
-            <Td className="pr-8">{result.longPosition} 株</Td>
-            <Td className="pr-8">{result.shortPosition} 株</Td>
-            <Td className="pr-8">{result.profit} 円</Td>
+            <Td className="pr-8">{simulationResult.longPositionVolume} 株</Td>
+            <Td className="pr-8">{simulationResult.shortPositionVolume} 株</Td>
+            <Td className="pr-8">{simulationResult.assets} 円</Td>
+            <Td>{simulationResult.cashPosition} 円</Td>
           </Tr>
         </tbody>
       </Table>

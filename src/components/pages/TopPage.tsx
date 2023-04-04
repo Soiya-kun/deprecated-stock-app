@@ -39,6 +39,7 @@ import {
   wma26Direction,
 } from "@/domains/ChartSituation/computed";
 import { stockInfo } from "@/domains/stock/computed";
+import { transactionResult } from "@/domains/stockTransaction/computed";
 import {
   newSimulation,
   newUnitTransaction,
@@ -113,6 +114,8 @@ export function TopPage() {
     });
   };
 
+  const result = transactionResult(simulation, ch.currentValue);
+
   const [unitTransaction, setUnitTransaction] = useState<UnitTransaction>(
     newUnitTransaction(),
   );
@@ -132,6 +135,8 @@ export function TopPage() {
       }
     },
     handleClickOnTradeButton: (type) => {
+      if (ch.currentValue * unitTransaction.volume > result.cashPosition)
+        return;
       setSimulation({
         ...simulation,
         tradeTransactions: [
@@ -232,7 +237,7 @@ export function TopPage() {
               className="mt-4"
               simulationHook={simulationHook}
               simulation={simulation}
-              currentValue={ch.currentValue}
+              simulationResult={result}
             />
           </>
         )}

@@ -37,6 +37,13 @@ export const transactionResult = (
     isShort(position),
   );
 
+  const shortPositionVolume = shortPositions.reduce(
+    (vol, ut) => vol + ut.volume * (isShortBuy(ut) ? -1 : 1),
+    0,
+  );
+
+  const shortPosition = shortPositionVolume * currentValue;
+
   const shortProfit =
     shortPositions.reduce(
       (acc, position) =>
@@ -51,6 +58,13 @@ export const transactionResult = (
     isLong(position),
   );
 
+  const longPositionVolume = longPositions.reduce(
+    (vol, ut) => vol + ut.volume * (isLongBuy(ut) ? 1 : -1),
+    0,
+  );
+
+  const longPosition = longPositionVolume * currentValue;
+
   const longProfit =
     longPositions.reduce(
       (acc, position) =>
@@ -62,14 +76,14 @@ export const transactionResult = (
       longPositions.reduce((acc, position) => acc + volumeChange(position), 0);
 
   return {
-    shortPosition: shortPositions.reduce(
-      (vol, ut) => vol + ut.volume * (isShortBuy(ut) ? -1 : 1),
-      0,
-    ),
-    longPosition: longPositions.reduce(
-      (vol, ut) => vol + ut.volume * (isLongBuy(ut) ? 1 : -1),
-      0,
-    ),
-    profit: simulation.startingAmount + longProfit + shortProfit,
+    shortPositionVolume,
+    longPositionVolume,
+    assets: simulation.startingAmount + longProfit + shortProfit,
+    cashPosition:
+      simulation.startingAmount +
+      longProfit +
+      shortProfit -
+      longPosition -
+      shortPosition,
   };
 };

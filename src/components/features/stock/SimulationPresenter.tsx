@@ -7,6 +7,7 @@ import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
 import { TextAreaWithTitleAndError } from "@/components/ui/TextAreaWithTitleAndError";
 import {
   Simulation,
+  SimulationResult,
   TransactionType,
   UnitTransaction,
 } from "@/domains/stockTransaction/dto";
@@ -22,14 +23,14 @@ export type SimulationHookType = {
 
 type Props = {
   className?: string;
-  currentValue: number;
+  simulationResult: SimulationResult;
   simulationHook: SimulationHookType;
   simulation: Simulation;
 };
 
 export function SimulationPresenter({
   className,
-  currentValue,
+  simulationResult,
   simulationHook,
   simulation,
 }: Props) {
@@ -41,8 +42,7 @@ export function SimulationPresenter({
       />
       <TransactionResultPresenter
         className="mt-4 text-lg"
-        currentValue={currentValue}
-        simulation={simulation}
+        simulationResult={simulationResult}
       />
       <div className="flex w-full">
         <TextAreaWithTitleAndError
