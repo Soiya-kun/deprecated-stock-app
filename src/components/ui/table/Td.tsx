@@ -8,5 +8,5 @@ type Props = {
 };
 
 export function Td({ className = "", children }: Props) {
-  return <td className={`py-2 px-4 ${className}`}>{children}</td>;
+  return <td className={`py-1 px-4 ${className}`}>{children}</td>;
 }

@@ -4,12 +4,13 @@ import { Tr } from "@/components/ui/table/Tr";
 import { UnitTransaction } from "@/domains/stockTransaction/dto";
 
 type Props = {
+  className?: string;
   transactions: UnitTransaction[];
 };
 
-export function TransactionTablePresenter({ transactions }: Props) {
+export function TransactionTablePresenter({ className, transactions }: Props) {
   return (
-    <Table>
+    <Table className={className}>
       <thead>
         <Tr>
           <Td>日付</Td>
@@ -21,10 +22,12 @@ export function TransactionTablePresenter({ transactions }: Props) {
       <tbody>
         {transactions.map((transaction) => (
           <Tr>
-            <td>{transaction.date.toISOString().slice(0, 10)}</td>
-            <td>{transaction.unitValue}</td>
-            <td>{transaction.volume}</td>
-            <td>{transaction.unitValue * transaction.volume}</td>
+            <Td className="pr-8">
+              {transaction.date.toISOString().slice(0, 10)}
+            </Td>
+            <Td className="pr-8">{transaction.unitValue} 円</Td>
+            <Td className="pr-8">{transaction.volume} 株</Td>
+            <Td>{transaction.unitValue * transaction.volume} 円</Td>
           </Tr>
         ))}
       </tbody>
