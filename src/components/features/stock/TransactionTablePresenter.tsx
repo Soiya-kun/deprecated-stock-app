@@ -10,27 +10,31 @@ type Props = {
 
 export function TransactionTablePresenter({ className, transactions }: Props) {
   return (
-    <Table className={className}>
-      <thead>
-        <Tr>
-          <Td>日付</Td>
-          <Td>価格</Td>
-          <Td>株数</Td>
-          <Td>合計</Td>
-        </Tr>
-      </thead>
-      <tbody>
-        {transactions.map((transaction) => (
-          <Tr>
-            <Td className="pr-8">
-              {transaction.date.toISOString().slice(0, 10)}
-            </Td>
-            <Td className="pr-8">{transaction.unitValue} 円</Td>
-            <Td className="pr-8">{transaction.volume} 株</Td>
-            <Td>{transaction.unitValue * transaction.volume} 円</Td>
+    <div className={className}>
+      <Table>
+        <thead>
+          <Tr className="font-bold">
+            <Td>日付</Td>
+            <Td>価格</Td>
+            <Td>株数</Td>
+            <Td>合計</Td>
+            <Td>メモ</Td>
           </Tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {transactions.map((transaction) => (
+            <Tr>
+              <Td className="pr-8">
+                {transaction.date.toISOString().slice(0, 10)}
+              </Td>
+              <Td className="pr-8">{transaction.unitValue} 円</Td>
+              <Td className="pr-8">{transaction.volume} 株</Td>
+              <Td>{transaction.unitValue * transaction.volume} 円</Td>
+              <Td className="w-72 line-clamp-1">{transaction.memo}</Td>
+            </Tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 }

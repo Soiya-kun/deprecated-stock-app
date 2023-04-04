@@ -141,7 +141,7 @@ export function TopPage() {
             date: new Date(ch.currentDate),
             transactionType: type,
             unitValue: ch.currentValue,
-            memo: "",
+            memo: unitTransaction.memo,
           },
         ],
       });
@@ -229,8 +229,10 @@ export function TopPage() {
               ]}
             />
             <SimulationPresenter
+              className="mt-4"
               simulationHook={simulationHook}
               simulation={simulation}
+              currentValue={ch.currentValue}
             />
           </>
         )}

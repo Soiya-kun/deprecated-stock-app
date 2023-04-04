@@ -12,11 +12,9 @@ export const getDayMa5 = (gv: GraphValue): number => Number(gv[5]);
 export const getDayMa20 = (gv: GraphValue): number => Number(gv[6]);
 export const getDayMa60 = (gv: GraphValue): number => Number(gv[7]);
 export const getDayVolume = (gv: GraphValue): number => Number(gv[8]);
-
 export const getWeekHigh = (gv: GraphValue): number => Number(gv[1]);
 export const getWeekOpen = (gv: GraphValue): number => Number(gv[2]);
 export const getWeekClose = (gv: GraphValue): number => Number(gv[3]);
-
 export const getWeekLow = (gv: GraphValue): number => Number(gv[4]);
 export const getWeekMa13 = (gv: GraphValue): number => Number(gv[5]);
 export const getWeekMa26 = (gv: GraphValue): number => Number(gv[6]);

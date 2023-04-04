@@ -32,5 +32,7 @@ module.exports = {
       content: "calc(100vh - 13rem)",
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 };

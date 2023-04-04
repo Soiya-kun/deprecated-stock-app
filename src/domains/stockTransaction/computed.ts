@@ -1,4 +1,8 @@
-import { Simulation, UnitTransaction } from "@/domains/stockTransaction/dto";
+import {
+  Simulation,
+  SimulationResult,
+  UnitTransaction,
+} from "@/domains/stockTransaction/dto";
 
 export const isShort = (ut: UnitTransaction) =>
   ut.transactionType === "ShortBuy" || ut.transactionType === "ShortSell";
@@ -28,7 +32,7 @@ export const volumeChange = (ut: UnitTransaction) => {
 export const transactionResult = (
   simulation: Simulation,
   currentValue: number,
-): number => {
+): SimulationResult => {
   const shortPositions = simulation.tradeTransactions.filter((position) =>
     isShort(position),
   );
@@ -57,5 +61,15 @@ export const transactionResult = (
     currentValue *
       longPositions.reduce((acc, position) => acc + volumeChange(position), 0);
 
-  return simulation.startingAmount + longProfit + shortProfit;
+  return {
+    shortPosition: shortPositions.reduce(
+      (vol, ut) => vol + ut.volume * (isShortBuy(ut) ? -1 : 1),
+      0,
+    ),
+    longPosition: longPositions.reduce(
+      (vol, ut) => vol + ut.volume * (isLongBuy(ut) ? 1 : -1),
+      0,
+    ),
+    profit: simulation.startingAmount + longProfit + shortProfit,
+  };
 };

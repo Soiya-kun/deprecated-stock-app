@@ -12,6 +12,7 @@
     "test": "jest --verbose"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@types/axios": "^0.14.0",
     "@types/js-cookie": "^3.0.3",
     "@vitejs/plugin-react": "^2.1.0",

@@ -31,3 +31,9 @@ export const newSimulation = (): Simulation => ({
   startingAmount: 0,
   tradeTransactions: [],
 });
+
+export type SimulationResult = {
+  shortPosition: number;
+  longPosition: number;
+  profit: number;
+};

@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 
+import { TransactionResultPresenter } from "@/components/features/stock/TransactionResultPresenter";
 import { TransactionTablePresenter } from "@/components/features/stock/TransactionTablePresenter";
 import { ButtonWithError } from "@/components/ui/ButtonWithError";
 import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
@@ -20,16 +21,28 @@ export type SimulationHookType = {
 };
 
 type Props = {
+  className?: string;
+  currentValue: number;
   simulationHook: SimulationHookType;
   simulation: Simulation;
 };
 
-export function SimulationPresenter({ simulationHook, simulation }: Props) {
+export function SimulationPresenter({
+  className,
+  currentValue,
+  simulationHook,
+  simulation,
+}: Props) {
   return (
-    <div>
+    <div className={className}>
       <TransactionTablePresenter
         className="h-48 overflow-y-scroll"
         transactions={simulation.tradeTransactions}
+      />
+      <TransactionResultPresenter
+        className="mt-4 text-lg"
+        currentValue={currentValue}
+        simulation={simulation}
       />
       <div className="flex w-full">
         <TextAreaWithTitleAndError
