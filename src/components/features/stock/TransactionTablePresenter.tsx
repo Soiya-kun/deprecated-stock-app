@@ -11,9 +11,9 @@ type Props = {
 export function TransactionTablePresenter({ className, transactions }: Props) {
   return (
     <div className={className}>
-      <Table>
+      <Table className="w-max">
         <thead>
-          <Tr className="font-bold">
+          <Tr className="text-sm font-bold">
             <Td>日付</Td>
             <Td>価格</Td>
             <Td>株数</Td>
@@ -24,13 +24,13 @@ export function TransactionTablePresenter({ className, transactions }: Props) {
         <tbody>
           {transactions.map((transaction) => (
             <Tr>
-              <Td className="pr-8">
+              <Td className="w-max pr-8">
                 {transaction.date.toISOString().slice(0, 10)}
               </Td>
               <Td className="pr-8">{transaction.unitValue} 円</Td>
               <Td className="pr-8">{transaction.volume} 株</Td>
               <Td>{transaction.unitValue * transaction.volume} 円</Td>
-              <Td className="w-72 line-clamp-1">{transaction.memo}</Td>
+              <Td className="line-clamp-1">{transaction.memo}</Td>
             </Tr>
           ))}
         </tbody>

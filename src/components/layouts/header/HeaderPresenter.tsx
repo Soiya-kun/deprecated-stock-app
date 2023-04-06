@@ -11,7 +11,7 @@ export function HeaderPresenter() {
   const { showMode } = useBreakPointContext();
   const { isLoggedIn } = useAuthContext();
   return (
-    <div className="fixed z-10 flex h-16 w-full items-center border-b border-gray-300 bg-secondary text-sm phone:px-4 pc:px-12">
+    <div className="flex h-16 w-full items-center border-b border-gray-300 bg-secondary text-sm phone:px-4 pc:px-12">
       {showMode === "pc" && (
         <div className="flex w-full items-center justify-between">
           <Link to="/" className="mr-8 block h-12">

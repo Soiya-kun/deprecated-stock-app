@@ -16,7 +16,7 @@ export function TransactionResultPresenter({
     <div className={className}>
       <Table>
         <thead>
-          <Tr className="font-bold">
+          <Tr className="text-sm font-bold">
             <Td>ロング</Td>
             <Td>ロング益</Td>
             <Td>ショート</Td>
@@ -26,7 +26,7 @@ export function TransactionResultPresenter({
           </Tr>
         </thead>
         <tbody>
-          <Tr>
+          <Tr className="text-sm">
             <Td className="pr-8">{simulationResult.longPositionVolume} 株</Td>
             <Td className="pr-8">{simulationResult.longProfit} 円</Td>
             <Td className="pr-8">{simulationResult.shortPositionVolume} 株</Td>

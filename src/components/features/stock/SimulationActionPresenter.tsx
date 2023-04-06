@@ -28,7 +28,7 @@ type Props = {
   simulation: Simulation;
 };
 
-export function SimulationPresenter({
+export function SimulationActionPresenter({
   className,
   simulationResult,
   simulationHook,
@@ -41,7 +41,7 @@ export function SimulationPresenter({
         simulationResult={simulationResult}
       />
       <TransactionTablePresenter
-        className="mt-4 h-48 overflow-y-scroll"
+        className="mt-4 h-48 w-full overflow-x-scroll overflow-y-scroll"
         transactions={simulation.tradeTransactions}
       />
       <div className="flex w-full">
