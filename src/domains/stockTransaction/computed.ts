@@ -38,52 +38,52 @@ export const transactionResult = (
   );
 
   const shortPositionVolume = shortPositions.reduce(
-    (vol, ut) => vol + ut.volume * (isShortBuy(ut) ? -1 : 1),
+    (vol, ut) => vol + volumeChange(ut),
     0,
   );
 
-  const shortPosition = shortPositionVolume * currentValue;
+  const shortPositionValue = shortPositionVolume * currentValue;
 
-  const shortProfit =
-    shortPositions.reduce(
-      (acc, position) =>
-        acc +
-        position.unitValue * position.volume * (isShortBuy(position) ? -1 : 1),
-      0,
-    ) -
-    currentValue *
-      shortPositions.reduce((acc, position) => acc + volumeChange(position), 0);
+  const shortTradingValue = shortPositions.reduce(
+    (acc, position) =>
+      acc +
+      position.unitValue * position.volume * (isShortBuy(position) ? -1 : 1),
+    0,
+  );
+
+  const shortProfit = shortTradingValue - shortPositionValue;
 
   const longPositions = simulation.tradeTransactions.filter((position) =>
     isLong(position),
   );
 
   const longPositionVolume = longPositions.reduce(
-    (vol, ut) => vol + ut.volume * (isLongBuy(ut) ? 1 : -1),
+    (vol, ut) => vol + volumeChange(ut),
     0,
   );
 
-  const longPosition = longPositionVolume * currentValue;
+  const longPositionValue = longPositionVolume * currentValue;
 
-  const longProfit =
-    longPositions.reduce(
-      (acc, position) =>
-        acc +
-        position.unitValue * position.volume * (isLongBuy(position) ? -1 : 1),
-      0,
-    ) +
-    currentValue *
-      longPositions.reduce((acc, position) => acc + volumeChange(position), 0);
+  const longTradingValue = longPositions.reduce(
+    (acc, position) =>
+      acc +
+      position.unitValue * position.volume * (isLongBuy(position) ? -1 : 1),
+    0,
+  );
+
+  const longProfit = longTradingValue + currentValue * longPositionVolume;
 
   return {
     shortPositionVolume,
     longPositionVolume,
+    shortProfit,
+    longProfit,
     assets: simulation.startingAmount + longProfit + shortProfit,
     cashPosition:
       simulation.startingAmount +
-      longProfit +
-      shortProfit -
-      longPosition -
-      shortPosition,
+      longProfit -
+      longPositionValue -
+      shortTradingValue +
+      (shortPositionVolume === 0 ? 2 * shortProfit : 0),
   };
 };

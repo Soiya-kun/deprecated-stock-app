@@ -4,10 +4,8 @@ import { Chart } from "react-google-charts";
 import { GraphValue } from "@/domains/stock/computed";
 
 // GoogleChart の型を定義します。
-interface GoogleChartProps {
+export interface GoogleChartProps {
   className?: string;
-  width?: string;
-  height?: string;
   data: GraphValue[];
   maxVolume: number;
 }
@@ -34,8 +32,6 @@ export function DayChartPresenter({
       className={props.className}
       ref={chartRef}
       chartType="ComboChart"
-      width={props.width ?? "100%"}
-      height={props.height ?? "40vh"}
       data={props.data}
       options={{
         seriesType: "candlesticks",
@@ -101,8 +97,6 @@ export function WeekChartPresenter({
     <Chart
       className={props.className}
       chartType="ComboChart"
-      width={props.width ?? "100%"}
-      height={props.height ?? "40vh"}
       data={props.data}
       options={{
         seriesType: "candlesticks",

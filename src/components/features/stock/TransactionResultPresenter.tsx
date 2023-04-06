@@ -16,17 +16,21 @@ export function TransactionResultPresenter({
     <div className={className}>
       <Table>
         <thead>
-          <Tr className="font-bold">
+          <Tr className="text-sm font-bold">
             <Td>ロング</Td>
+            <Td>ロング益</Td>
             <Td>ショート</Td>
+            <Td>ショート益</Td>
             <Td>合計資産</Td>
             <Td>現金</Td>
           </Tr>
         </thead>
         <tbody>
-          <Tr>
+          <Tr className="text-sm">
             <Td className="pr-8">{simulationResult.longPositionVolume} 株</Td>
+            <Td className="pr-8">{simulationResult.longProfit} 円</Td>
             <Td className="pr-8">{simulationResult.shortPositionVolume} 株</Td>
+            <Td className="pr-8">{simulationResult.shortProfit} 円</Td>
             <Td className="pr-8">{simulationResult.assets} 円</Td>
             <Td>{simulationResult.cashPosition} 円</Td>
           </Tr>

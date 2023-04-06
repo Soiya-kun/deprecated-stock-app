@@ -35,6 +35,8 @@ export const newSimulation = (): Simulation => ({
 export type SimulationResult = {
   shortPositionVolume: number;
   longPositionVolume: number;
+  shortProfit: number;
+  longProfit: number;
   assets: number;
   cashPosition: number;
 };
