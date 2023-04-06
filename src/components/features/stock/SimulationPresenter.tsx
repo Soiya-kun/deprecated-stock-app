@@ -36,13 +36,13 @@ export function SimulationPresenter({
 }: Props) {
   return (
     <div className={className}>
-      <TransactionTablePresenter
-        className="h-48 overflow-y-scroll"
-        transactions={simulation.tradeTransactions}
-      />
       <TransactionResultPresenter
-        className="mt-4 text-lg"
+        className="text-lg"
         simulationResult={simulationResult}
+      />
+      <TransactionTablePresenter
+        className="mt-4 h-48 overflow-y-scroll"
+        transactions={simulation.tradeTransactions}
       />
       <div className="flex w-full">
         <TextAreaWithTitleAndError
