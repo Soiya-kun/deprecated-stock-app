@@ -25,6 +25,7 @@ import {
   StartingSetting,
 } from "@/components/features/stock/SimulationStartPresenter";
 import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
+import { useAuthContext } from "@/components/functionals/AuthContextProvider";
 import { useBreakPointContext } from "@/components/functionals/BreakPointContextProvider";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
@@ -53,6 +54,7 @@ import { useGetStocks } from "@/hooks/injections";
 
 type Props = {
   className?: string;
+  code: string; // 株式コード
 };
 
 const DayChart = memo<ComponentProps<typeof DayChartPresenter>>(
@@ -63,8 +65,11 @@ const WeekChart = memo<ComponentProps<typeof WeekChartPresenter>>(
   forwardRef(WeekChartPresenter),
 );
 
-export function SimulationContainer({ className }: Props) {
-  const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], "0001");
+export function SimulationContainer({ className, code }: Props) {
+  const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], code);
+
+  const auth = useAuthContext();
+  if (auth.isLoggedIn) console.log("ログインしています");
 
   const [dateState, setDateState] = useState<DateState>({
     dayCount: 60,
@@ -221,7 +226,7 @@ export function SimulationContainer({ className }: Props) {
               )}
             />
             <ChartSituationPresenter
-              className="mt-4"
+              className="mt-2"
               chartData={ch.chartData}
               chartDataWeek={ch.chartDataWeek}
               funcs={[
@@ -241,6 +246,7 @@ export function SimulationContainer({ className }: Props) {
               simulationHook={simulationHook}
               simulation={simulation}
               simulationResult={result}
+              isToSave
             />
           </>
         )}

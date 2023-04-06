@@ -19,7 +19,7 @@ export function ChartSituationPresenter({
     return res.message === "" ? null : (
       <p
         key={`chartSituation${String(i)}`}
-        className={`mr-2 rounded-full p-1.5
+        className={`mt-2 mr-2 rounded-full p-1.5
             ${res.direction === true && "bg-green-500"}
             ${res.direction === false && "bg-red-500"}            
             `}

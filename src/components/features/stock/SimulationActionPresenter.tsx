@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 
 import { TransactionResultPresenter } from "@/components/features/stock/TransactionResultPresenter";
 import { TransactionTablePresenter } from "@/components/features/stock/TransactionTablePresenter";
+import { useAuthContext } from "@/components/functionals/AuthContextProvider";
 import { ButtonWithError } from "@/components/ui/ButtonWithError";
 import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
 import { TextAreaWithTitleAndError } from "@/components/ui/TextAreaWithTitleAndError";
@@ -23,6 +24,7 @@ export type SimulationHookType = {
 
 type Props = {
   className?: string;
+  isToSave: boolean;
   simulationResult: SimulationResult;
   simulationHook: SimulationHookType;
   simulation: Simulation;
@@ -30,10 +32,12 @@ type Props = {
 
 export function SimulationActionPresenter({
   className,
+  isToSave,
   simulationResult,
   simulationHook,
   simulation,
 }: Props) {
+  const auth = useAuthContext();
   return (
     <div className={className}>
       <TransactionResultPresenter
@@ -95,6 +99,19 @@ export function SimulationActionPresenter({
               買戻
             </ButtonWithError>
           </div>
+          {auth.isLoggedIn && isToSave && (
+            <ButtonWithError className="mt-8 w-full" variant="secondary">
+              保存
+            </ButtonWithError>
+          )}
+          {auth.isLoggedIn && isToSave && (
+            <ButtonWithError
+              className="mt-8 w-full"
+              variant="secondaryOutlined"
+            >
+              削除
+            </ButtonWithError>
+          )}
         </div>
       </div>
     </div>
