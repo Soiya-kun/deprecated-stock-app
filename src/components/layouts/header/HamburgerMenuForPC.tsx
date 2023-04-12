@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 
 import { HeaderMenu } from "@/components/layouts/header/HeaderMenu";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   className?: string;
@@ -30,6 +31,10 @@ export function HamburgerMenuForPC({ className = "" }: Props) {
     };
   }, [isOpened, ref]);
 
+  const location = useLocation();
+  useEffect(() => {
+    switchIsOpened(false);
+  }, [location.pathname]);
   return (
     <div className={`relative ${className}`} ref={ref}>
       <button

@@ -14,7 +14,7 @@ export function HeaderMenu({ className = "" }: Props) {
   return (
     <Card className={`py-4 ${className}`}>
       <TitleSmall label="" className="px-4" />
-      {auth.isLoggedIn ? (
+      {!auth.isLoggedIn ? (
         <Link to="/login">
           <p className="cursor-pointer px-4 py-0.5 text-gray-400 hover:bg-gray-100">
             ログイン

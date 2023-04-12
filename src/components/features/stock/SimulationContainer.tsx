@@ -68,9 +68,6 @@ const WeekChart = memo<ComponentProps<typeof WeekChartPresenter>>(
 export function SimulationContainer({ className, code }: Props) {
   const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], code);
 
-  const auth = useAuthContext();
-  if (auth.isLoggedIn) console.log("ログインしています");
-
   const [dateState, setDateState] = useState<DateState>({
     dayCount: 60,
     dayBeforeCount: 0,

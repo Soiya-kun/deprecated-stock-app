@@ -20,7 +20,7 @@ export function DayChartPresenter({
   ref,
 }: {
   props: GoogleChartProps;
-  ref: Ref<GoogleChartRef>;
+  ref?: Ref<GoogleChartRef>;
 }) {
   const chartRef = useRef<Chart>(null);
   useImperativeHandle(ref, () => ({

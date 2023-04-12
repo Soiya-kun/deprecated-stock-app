@@ -4,6 +4,7 @@ import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
 import { useAuthDriverForAxios } from "@/adapters/auth/auth";
 import { LoginReq, Token } from "@/domains/auth/dto";
 import { login } from "@/usecases/auth";
+import { getStockCodes, getStocks } from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
 // Auth
@@ -39,5 +40,12 @@ export const useGetStocks = () => {
   const deps = {
     api: useMockStockAPI(),
   };
-  return () => deps.api.getStocks("1234");
+  return (code: string) => getStocks(deps, code);
+};
+
+export const useGetStockCodes = () => {
+  const deps = {
+    api: useMockStockAPI(),
+  };
+  return () => getStockCodes(deps);
 };

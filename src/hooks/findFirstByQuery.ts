@@ -7,6 +7,7 @@ export type FindFirstByQueryHookType<T> = {
   id: string | undefined;
   isLoading: boolean;
   setRet: (t: T) => void;
+  find: (id: string) => Promise<void>;
 };
 
 // findById関連をまとめたhooks
@@ -21,24 +22,25 @@ export const useFindFirstByQuery = <T>(
   const [hasFailed, setHasFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const find = async () => {
+  const query = () => {
+    if (id !== undefined) {
+      return id;
+    }
+    if (key !== undefined) {
+      return key;
+    }
+    return "";
+  };
+
+  const find = async (attr: string) => {
     setIsLoading(true);
     if (id === undefined && key === undefined) {
       setHasFailed(true);
       setIsLoading(false);
       return;
     }
-    const query = () => {
-      if (id !== undefined) {
-        return id;
-      }
-      if (key !== undefined) {
-        return key;
-      }
-      return "";
-    };
     try {
-      const result = await findById(query());
+      const result = await findById(attr);
       setRet(result);
     } catch (e) {
       setHasFailed(true);
@@ -47,9 +49,8 @@ export const useFindFirstByQuery = <T>(
   };
 
   useEffect(() => {
-    console.log("useFindFirstByQuery: useEffect");
-    find();
+    find(query());
   }, []);
 
-  return { ret, hasFailed, id, isLoading, setRet };
+  return { ret, hasFailed, id, isLoading, setRet, find };
 };

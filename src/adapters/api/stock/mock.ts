@@ -38,4 +38,7 @@ export const useMockStockAPI = (): StockAPI => ({
         return { ...ret, sc: stockCode };
       });
   },
+  async getStockCodes(): Promise<string[]> {
+    return ["0001", "0002", "1301"];
+  },
 });
