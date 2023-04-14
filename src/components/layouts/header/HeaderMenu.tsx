@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "@/components/functionals/AuthContextProvider";
 import { Card } from "@/components/ui/Card";
 import { TitleSmall } from "@/components/ui/TitleSmall";
+import { appURL } from "@/config/url";
 
 type Props = {
   className?: string;
@@ -30,6 +31,11 @@ export function HeaderMenu({ className = "" }: Props) {
           <Link to="/condition/saved">
             <p className="cursor-pointer px-4 py-0.5 text-gray-400 hover:bg-gray-100">
               保存した条件
+            </p>
+          </Link>
+          <Link to={appURL.todayChart}>
+            <p className="cursor-pointer px-4 py-0.5 text-gray-400 hover:bg-gray-100">
+              本日のチャート
             </p>
           </Link>
         </>

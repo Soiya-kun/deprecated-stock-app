@@ -25,7 +25,6 @@ import {
   StartingSetting,
 } from "@/components/features/stock/SimulationStartPresenter";
 import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
-import { useAuthContext } from "@/components/functionals/AuthContextProvider";
 import { useBreakPointContext } from "@/components/functionals/BreakPointContextProvider";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
