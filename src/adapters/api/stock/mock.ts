@@ -8,8 +8,8 @@ export const mockBDate = (index: number): string => {
 };
 
 export const mockStock = (index: number, openPrice: number): Stock => ({
-  sc: "1234",
-  name: "ソフトバンク",
+  stockCode: "1234",
+  stockName: "ソフトバンク",
   market: "東証一部",
   industry: "mock",
   bDate: mockBDate(index),
@@ -35,7 +35,7 @@ export const useMockStockAPI = (): StockAPI => ({
       .map((_, i) => {
         const ret = mockStock(i, prev);
         prev = ret.closedPrice;
-        return { ...ret, sc: stockCode };
+        return { ...ret, stockCode };
       });
   },
   async getStockCodes(): Promise<string[]> {

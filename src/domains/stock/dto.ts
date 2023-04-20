@@ -1,13 +1,13 @@
 export type Stock = {
-  sc: string;
-  name: string;
+  stockCode: string;
+  stockName: string;
   market: string;
   industry: string;
   bDate: string;
+  closedPrice: number;
   openedPrice: number;
   highPrice: number;
   lowPrice: number;
-  closedPrice: number;
   volume: number;
   transactionPrice: number;
   marketCapitalization: number;

@@ -140,8 +140,8 @@ export const stockInfo = (
 ): StockInfo => ({
   industry: todayStock.industry,
   market: todayStock.market,
-  name: todayStock.name,
-  sc: todayStock.sc,
+  name: todayStock.stockName,
+  sc: todayStock.stockCode,
   closedPrice: todayStock.closedPrice,
   diffFromYesterday: todayStock.closedPrice - yesterdayStock.closedPrice,
   diffFromYesterdayPercent:
