@@ -6,7 +6,7 @@ export function ErrorMessage({
   hidden: boolean;
 }) {
   return (
-    <p className="my-4 text-sm text-red-500" hidden={hidden}>
+    <p className="mt-1 text-sm text-red-500" hidden={hidden}>
       {message}
     </p>
   );

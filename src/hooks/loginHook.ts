@@ -9,7 +9,7 @@ export type LoginHookType = {
   hasFailed: boolean;
   isLogining: boolean;
   obj: LoginReq;
-  login: () => void;
+  login: () => Promise<void>;
   handleChangeOnInput: (
     e: ChangeEvent<HTMLInputElement>,
     name: keyof LoginReq,

@@ -26,12 +26,14 @@ type Props = {
   };
   handleClickOnStartButton: () => void;
   minDate: string;
+  errorMessage: string;
 };
 
 export function SimulationStartPresenter({
   inputHook,
   handleClickOnStartButton,
   minDate,
+  errorMessage,
 }: Props) {
   return (
     <div className="flex flex-col justify-center">
@@ -59,6 +61,8 @@ export function SimulationStartPresenter({
         variant="primary"
         className="mx-auto mt-8"
         onClick={handleClickOnStartButton}
+        errorMessage={errorMessage}
+        hasError={errorMessage !== ""}
       >
         シミュレーション開始
       </ButtonWithError>

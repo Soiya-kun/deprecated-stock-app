@@ -135,19 +135,32 @@ export const stockValueWeekWithMa = (props: {
 };
 
 export const stockInfo = (
-  todayStock: Stock,
-  yesterdayStock: Stock,
-): StockInfo => ({
-  industry: todayStock.industry,
-  market: todayStock.market,
-  name: todayStock.stockName,
-  sc: todayStock.stockCode,
-  closedPrice: todayStock.closedPrice,
-  diffFromYesterday: todayStock.closedPrice - yesterdayStock.closedPrice,
-  diffFromYesterdayPercent:
-    Math.floor(
-      ((todayStock.closedPrice - yesterdayStock.closedPrice) /
-        yesterdayStock.closedPrice) *
-        1000,
-    ) / 10,
-});
+  todayStock: Stock | undefined,
+  yesterdayStock: Stock | undefined,
+): StockInfo => {
+  if (todayStock === undefined || yesterdayStock === undefined) {
+    return {
+      industry: "",
+      market: "",
+      name: "",
+      sc: "",
+      closedPrice: 0,
+      diffFromYesterday: 0,
+      diffFromYesterdayPercent: 0,
+    };
+  }
+  return {
+    industry: todayStock.industry,
+    market: todayStock.market,
+    name: todayStock.stockName,
+    sc: todayStock.stockCode,
+    closedPrice: todayStock.closedPrice,
+    diffFromYesterday: todayStock.closedPrice - yesterdayStock.closedPrice,
+    diffFromYesterdayPercent:
+      Math.floor(
+        ((todayStock.closedPrice - yesterdayStock.closedPrice) /
+          yesterdayStock.closedPrice) *
+          1000,
+      ) / 10,
+  };
+};

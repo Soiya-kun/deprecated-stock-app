@@ -1,4 +1,4 @@
-import { useMockAuthAPI } from "@/adapters/api/auth/mock";
+import { useAuthApi } from "@/adapters/api/auth/api";
 import { useStockAPI } from "@/adapters/api/stock/api";
 import { useMockStockAPI } from "@/adapters/api/stock/mock";
 import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
@@ -11,7 +11,7 @@ import { findMe } from "@/usecases/user";
 // Auth
 export const useLogin = () => {
   const deps = {
-    api: useMockAuthAPI(),
+    api: useAuthApi(),
     auth: useAuthDriverForAxios(),
   };
   return (loginReq: LoginReq) => login(deps, loginReq);

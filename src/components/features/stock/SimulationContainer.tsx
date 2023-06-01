@@ -106,13 +106,21 @@ export function SimulationContainer({ className, code }: Props) {
   const [simulation, setSimulation] = useState<Simulation>(newSimulation);
 
   const [isStart, setIsStart] = useState<boolean>(false);
+  const [startErrorMessage, setStartErrorMessage] = useState<string>("");
   const handleClickOnStartButton = () => {
     const dateIndex = findStocksHook.ret.findIndex(
       (stock) =>
         stock.bDate ===
         startingSetting.startingDate.toISOString().substring(0, 10),
     );
-    if (dateIndex - dateState.dayCount < 0) return;
+    if (dateIndex === -1) {
+      setStartErrorMessage("開始日に取引情報が見つかりませんでした");
+      return;
+    }
+    if (dateIndex - dateState.dayCount < 0) {
+      setStartErrorMessage("開始日が早すぎます");
+      return;
+    }
     setIsStart(true);
     setDateState({
       ...dateState,
@@ -211,6 +219,7 @@ export function SimulationContainer({ className, code }: Props) {
             inputHook={startSettingInputHook}
             handleClickOnStartButton={handleClickOnStartButton}
             minDate={ch.minDate}
+            errorMessage={startErrorMessage}
           />
         )}
         {isStart && (
