@@ -17,22 +17,47 @@ export function TransactionResultPresenter({
       <Table>
         <thead>
           <Tr className="text-sm font-bold">
-            <Td>ロング</Td>
-            <Td>ロング益</Td>
-            <Td>ショート</Td>
-            <Td>ショート益</Td>
-            <Td>合計資産</Td>
-            <Td>現金</Td>
+            <Td>
+              <p className="w-max">ロング</p>
+            </Td>
+            <Td>
+              <p className="w-max">ロング益</p>
+            </Td>
+            <Td>
+              <p className="w-max">ショート</p>
+            </Td>
+            <Td>
+              <p className="w-max">ショート益</p>
+            </Td>
+            <Td>
+              {" "}
+              <p className="w-max">合計資産</p>
+            </Td>
+            <Td>
+              <p className="w-max">現金</p>
+            </Td>
           </Tr>
         </thead>
         <tbody>
           <Tr className="text-sm">
-            <Td className="pr-8">{simulationResult.longPositionVolume} 株</Td>
-            <Td className="pr-8">{simulationResult.longProfit} 円</Td>
-            <Td className="pr-8">{simulationResult.shortPositionVolume} 株</Td>
-            <Td className="pr-8">{simulationResult.shortProfit} 円</Td>
-            <Td className="pr-8">{simulationResult.assets} 円</Td>
-            <Td>{simulationResult.cashPosition} 円</Td>
+            <Td className="pr-8">
+              <p className="w-max">{simulationResult.longPositionVolume} 株</p>
+            </Td>
+            <Td className="pr-8">
+              <p className="w-max">{simulationResult.longProfit} 円</p>
+            </Td>
+            <Td className="pr-8">
+              <p className="w-max">{simulationResult.shortPositionVolume} 株</p>
+            </Td>
+            <Td className="pr-8">
+              <p className="w-max">{simulationResult.shortProfit} 円</p>
+            </Td>
+            <Td className="pr-8">
+              <p className="w-max">{simulationResult.assets} 円</p>
+            </Td>
+            <Td>
+              <p className="w-max">{simulationResult.cashPosition} 円</p>
+            </Td>
           </Tr>
         </tbody>
       </Table>

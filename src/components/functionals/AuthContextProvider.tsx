@@ -70,6 +70,6 @@ export function AuthContextProvider({ children }: Props) {
 }
 
 export const useAuthContext = () => {
-  const [auth] = useContext(AuthContext);
-  return auth;
+  const [auth, setAuth] = useContext(AuthContext);
+  return { auth, setAuth };
 };

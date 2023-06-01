@@ -25,7 +25,6 @@ import {
   StartingSetting,
 } from "@/components/features/stock/SimulationStartPresenter";
 import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
-import { useAuthContext } from "@/components/functionals/AuthContextProvider";
 import { useBreakPointContext } from "@/components/functionals/BreakPointContextProvider";
 import { InputHook } from "@/components/ui/InputWithTitleAndError";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
@@ -50,11 +49,12 @@ import {
 } from "@/domains/stockTransaction/dto";
 import { chartHook, DateState } from "@/hooks/chartHook";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
-import { useGetStocks } from "@/hooks/injections";
+import { useFindFirstWithNoQuery } from "@/hooks/findFirstWithNoQuery";
+import { useGetStocks, useGetStocksByRandom } from "@/hooks/injections";
 
 type Props = {
   className?: string;
-  code: string; // 株式コード
+  code?: string;
 };
 
 const DayChart = memo<ComponentProps<typeof DayChartPresenter>>(
@@ -66,7 +66,10 @@ const WeekChart = memo<ComponentProps<typeof WeekChartPresenter>>(
 );
 
 export function SimulationContainer({ className, code }: Props) {
-  const findStocksHook = useFindFirstByQuery(useGetStocks(), () => [], code);
+  const findStocksHook =
+    code != null
+      ? useFindFirstByQuery(useGetStocks(), () => [], code)
+      : useFindFirstWithNoQuery(useGetStocksByRandom(), () => []);
 
   const [dateState, setDateState] = useState<DateState>({
     dayCount: 60,
@@ -248,9 +251,11 @@ export function SimulationContainer({ className, code }: Props) {
           </>
         )}
       </div>
-      <div className="w-1/2">
+      <div className="min-h-[52rem] w-1/2">
         {findStocksHook.isLoading ? (
-          <SixDotsScaleMiddle />
+          <div className="flex h-full w-full items-center justify-center">
+            <SixDotsScaleMiddle />
+          </div>
         ) : (
           <>
             <DayChart ref={dayChartRef} props={dayChartProps} />

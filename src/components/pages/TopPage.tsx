@@ -4,8 +4,10 @@ import { TopPageServicePresenter } from "@/components/features/topPage/TopPageSe
 export function TopPage() {
   return (
     <>
-      <TopPageServicePresenter className="h-[80vh] bg-gray-50" />
-      <SimulationContainer code="0001" className="mx-auto max-w-7xl" />
+      <div className="flex bg-gray-50">
+        <TopPageServicePresenter className="mx-auto h-[80vh] max-w-4xl" />
+      </div>
+      <SimulationContainer className="mx-auto max-w-6xl pt-10" />
     </>
   );
 }

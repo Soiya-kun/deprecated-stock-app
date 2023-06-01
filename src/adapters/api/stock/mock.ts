@@ -38,6 +38,18 @@ export const useMockStockAPI = (): StockAPI => ({
         return { ...ret, stockCode };
       });
   },
+  async getStocksByRandom(): Promise<Stock[]> {
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    let prev = 500;
+    return Array(1000)
+      .fill(0)
+      .map((_, i) => {
+        const ret = mockStock(i, prev);
+        prev = ret.closedPrice;
+        return { ...ret };
+      });
+  },
   async getStockCodes(): Promise<string[]> {
     return ["0001", "0002", "1301"];
   },

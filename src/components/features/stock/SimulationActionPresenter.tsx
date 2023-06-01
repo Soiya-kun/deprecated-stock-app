@@ -45,7 +45,7 @@ export function SimulationActionPresenter({
         simulationResult={simulationResult}
       />
       <TransactionTablePresenter
-        className="mt-4 h-48 w-full overflow-x-scroll overflow-y-scroll"
+        className="mt-4 h-48 w-full overflow-x-auto overflow-y-auto"
         transactions={simulation.tradeTransactions}
       />
       <div className="flex w-full">
@@ -99,12 +99,12 @@ export function SimulationActionPresenter({
               買戻
             </ButtonWithError>
           </div>
-          {auth.isLoggedIn && isToSave && (
+          {auth.auth.isLoggedIn && isToSave && (
             <ButtonWithError className="mt-8 w-full" variant="secondary">
               保存
             </ButtonWithError>
           )}
-          {auth.isLoggedIn && isToSave && (
+          {auth.auth.isLoggedIn && isToSave && (
             <ButtonWithError
               className="mt-8 w-full"
               variant="secondaryOutlined"

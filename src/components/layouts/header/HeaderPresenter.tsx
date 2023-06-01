@@ -6,19 +6,35 @@ import { HamburgerMenuForPC } from "@/components/layouts/header/HamburgerMenuFor
 import { HamburgerMenuForPhone } from "@/components/layouts/header/HamburgerMenuForPhone";
 import { Logo } from "@/components/ui/icon/Logo";
 import { appURL } from "@/config/url";
+import { newUser } from "@/domains/user";
+import { useLogout } from "@/hooks/injections";
 
 export function HeaderPresenter() {
   const { showMode } = useBreakPointContext();
-  const { isLoggedIn } = useAuthContext();
+  const ac = useAuthContext();
+  const handleLogout = () => {
+    const logout = useLogout();
+    logout();
+    ac.setAuth({
+      isFindingMeNow: false,
+      isLoggedIn: false,
+      token: {
+        accessToken: "",
+        tokenType: "",
+      },
+      user: newUser(),
+    });
+  };
+
   return (
-    <div className="flex h-16 w-full items-center border-b border-gray-300 bg-secondary text-sm phone:px-4 pc:px-12">
+    <div className="relative flex h-16 w-full items-center justify-center border-b border-gray-300 text-sm shadow-2xl phone:px-4 pc:px-12">
       {showMode === "pc" && (
-        <div className="flex w-full items-center justify-between">
+        <div className=" flex w-full max-w-5xl items-center justify-between">
           <Link to="/" className="mr-8 block h-12">
             <Logo />
           </Link>
           <div className="flex items-center">
-            {!isLoggedIn && (
+            {!ac.auth.isLoggedIn ? (
               <>
                 <Link
                   to={appURL.register}
@@ -30,6 +46,10 @@ export function HeaderPresenter() {
                   ログイン
                 </Link>
               </>
+            ) : (
+              <button type="button" className="mr-4" onClick={handleLogout}>
+                ログアウト
+              </button>
             )}
             <HamburgerMenuForPC />
           </div>

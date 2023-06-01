@@ -1,10 +1,11 @@
 import { useMockAuthAPI } from "@/adapters/api/auth/mock";
+import { useStockAPI } from "@/adapters/api/stock/api";
 import { useMockStockAPI } from "@/adapters/api/stock/mock";
 import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
 import { useAuthDriverForAxios } from "@/adapters/auth/auth";
 import { LoginReq, Token } from "@/domains/auth/dto";
-import { login } from "@/usecases/auth";
-import { getStockCodes, getStocks } from "@/usecases/stock";
+import { login, logout } from "@/usecases/auth";
+import { getStockCodes, getStocks, getStocksByRandom } from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
 // Auth
@@ -14,6 +15,13 @@ export const useLogin = () => {
     auth: useAuthDriverForAxios(),
   };
   return (loginReq: LoginReq) => login(deps, loginReq);
+};
+
+export const useLogout = () => {
+  const deps = {
+    auth: useAuthDriverForAxios(),
+  };
+  return () => logout(deps);
 };
 
 export const useGetTokenInCache = (): (() => Token) => () => ({
@@ -38,9 +46,16 @@ export const useFindMe = () => {
 // stock
 export const useGetStocks = () => {
   const deps = {
-    api: useMockStockAPI(),
+    api: useStockAPI(),
   };
   return (code: string) => getStocks(deps, code);
+};
+
+export const useGetStocksByRandom = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return () => getStocksByRandom(deps);
 };
 
 export const useGetStockCodes = () => {
