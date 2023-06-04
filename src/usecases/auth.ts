@@ -16,3 +16,6 @@ export const login = async (
 export const logout = async (deps: { auth: Auth }): Promise<void> => {
   await deps.auth.resetTokenInCache();
 };
+
+export const getTokenInCache = (deps: { auth: Auth }): Token =>
+  deps.auth.getTokenFromCache();

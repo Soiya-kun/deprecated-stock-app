@@ -16,6 +16,11 @@ export const useStockAPI = (): StockAPI => ({
     return res.data.map((stock) => entityFromStockRes(stock));
   },
   async getStockCodes(): Promise<string[]> {
-    return ["0001", "0002", "1301"];
+    const res = await axios.get<{ stockCodes: string[] }>(`${uri}/stock-codes`);
+    return res.data.stockCodes;
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async saveStockCode(stockCode: string): Promise<void> {
+    return Promise.resolve(undefined);
   },
 });

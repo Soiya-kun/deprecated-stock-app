@@ -30,14 +30,16 @@ export function TodayChartContainer({
   className?: string;
 }) {
   const stockCodeListHook = useList(useGetStockCodes());
+
   const [selectedStockCodeIndex, setSelectedStockCodeIndex] =
     useState<number>(0);
+
   const selectedCode = () => {
     if (
       stockCodeListHook.ret.length === 0 ||
       stockCodeListHook.ret.length < selectedStockCodeIndex
     )
-      return "";
+      return "0001";
     return stockCodeListHook.ret[selectedStockCodeIndex];
   };
 

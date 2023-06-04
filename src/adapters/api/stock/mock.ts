@@ -53,4 +53,8 @@ export const useMockStockAPI = (): StockAPI => ({
   async getStockCodes(): Promise<string[]> {
     return ["0001", "0002", "1301"];
   },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  saveStockCode(stockCode: string): Promise<void> {
+    return Promise.resolve(undefined);
+  },
 });

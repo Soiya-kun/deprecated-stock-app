@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 import {
@@ -7,6 +7,7 @@ import {
 } from "@/components/functionals/AuthContextProvider";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import { appURL } from "@/config/url";
+import { useFindMeHook } from "@/hooks/findMe";
 
 /**
  * @param {AuthContextType} auth ログインユーザーのauth情報
@@ -40,6 +41,11 @@ export const authorize = (
 
 export function AuthMiddleware() {
   const [auth] = useContext(AuthContext);
+
+  const { findMe } = useFindMeHook();
+  useEffect(() => {
+    findMe();
+  }, []);
 
   const location = useLocation();
   // 認可にuser情報が必要なため、findMeの終了を待つ

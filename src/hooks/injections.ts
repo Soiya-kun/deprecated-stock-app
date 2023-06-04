@@ -1,10 +1,9 @@
 import { useAuthApi } from "@/adapters/api/auth/api";
 import { useStockAPI } from "@/adapters/api/stock/api";
-import { useMockStockAPI } from "@/adapters/api/stock/mock";
-import { useInMemoryUserAPI } from "@/adapters/api/user/mock";
+import { useUserAPI } from "@/adapters/api/user/api";
 import { useAuthDriverForAxios } from "@/adapters/auth/auth";
-import { LoginReq, Token } from "@/domains/auth/dto";
-import { login, logout } from "@/usecases/auth";
+import { LoginReq } from "@/domains/auth/dto";
+import { getTokenInCache, login, logout } from "@/usecases/auth";
 import { getStockCodes, getStocks, getStocksByRandom } from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
@@ -24,21 +23,17 @@ export const useLogout = () => {
   return () => logout(deps);
 };
 
-export const useGetTokenInCache = (): (() => Token) => () => ({
-  tokenType: "Bearer",
-  accessToken: "mockToken",
-});
-
-export const useSaveTokenToCache = () => {
+export const useGetTokenInCache = () => {
   const deps = {
     auth: useAuthDriverForAxios(),
   };
-  return (token: Token) => deps.auth.saveTokenToCache(token);
+  return () => getTokenInCache(deps);
 };
+
 // User
 export const useFindMe = () => {
   const deps = {
-    api: useInMemoryUserAPI(),
+    api: useUserAPI(),
   };
   return () => findMe(deps);
 };
@@ -60,7 +55,7 @@ export const useGetStocksByRandom = () => {
 
 export const useGetStockCodes = () => {
   const deps = {
-    api: useMockStockAPI(),
+    api: useStockAPI(),
   };
   return () => getStockCodes(deps);
 };

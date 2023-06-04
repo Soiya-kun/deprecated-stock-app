@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { LoginReq, newLoginReq } from "@/domains/auth/dto";
 import { validationsLoginReq } from "@/domains/auth/validation";
 import { Validations } from "@/domains/validationObject";
-import { useLogin, useSaveTokenToCache } from "@/hooks/injections";
+import { useLogin } from "@/hooks/injections";
 
 export type LoginHookType = {
   hasFailed: boolean;
@@ -24,13 +24,11 @@ export const useLoginHook = (): LoginHookType => {
   const [hasFailed, setHasFailed] = useState(false);
 
   const l = useLogin();
-  const saveToken = useSaveTokenToCache();
   const login = async () => {
     setIsLogining(true);
     setHasFailed(false);
     try {
-      const result = await l(loginReq);
-      saveToken(result);
+      await l(loginReq);
     } catch (e) {
       setHasFailed(true);
     }

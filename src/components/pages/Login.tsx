@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonWithError } from "@/components/ui/ButtonWithError";
 import { InputWithTitleAndError } from "@/components/ui/InputWithTitleAndError";
 import { appURL } from "@/config/url";
+import { useFindMeHook } from "@/hooks/findMe";
 import { useLoginHook } from "@/hooks/loginHook";
 
 export function Login() {
@@ -10,8 +11,11 @@ export function Login() {
 
   const navigate = useNavigate();
 
+  const { findMe } = useFindMeHook();
+
   const handleClickOnLoginButton = async () => {
     await loginHook.login();
+    await findMe();
     navigate(appURL.myPage);
   };
 
