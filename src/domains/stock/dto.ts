@@ -15,6 +15,12 @@ export type Stock = {
   highLimit: number;
 };
 
+export type StockCreate = Stock & {
+  change: number;
+  changePercent: number;
+  previousClose: number;
+};
+
 export type StockInfo = {
   sc: string;
   name: string;
