@@ -24,10 +24,10 @@ function App() {
             <Routes>
               {/* 認可が必要なページはAuthMiddleware内に配置する */}
               <Route element={<DefaultLayout />}>
-                <Route path={appURL.home} element={<TopPage />} />
-                <Route path={appURL.login} element={<Login />} />
-                <Route path={appURL.error} element={<Error404 />} />
                 <Route element={<AuthMiddleware />}>
+                  <Route path={appURL.home} element={<TopPage />} />
+                  <Route path={appURL.login} element={<Login />} />
+                  <Route path={appURL.error} element={<Error404 />} />
                   <Route path={appURL.myPage} element={<MyPage />} />
                   <Route
                     path={appURL.simulation}

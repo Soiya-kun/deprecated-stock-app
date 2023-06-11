@@ -27,6 +27,7 @@ export function StockAddContainer() {
       const newLines = rows
         .slice(1)
         .filter((row) => row !== "")
+        .map((row) => row.replace(/"/g, ""))
         .map((row) => row.split(","))
         .map(
           (row): StockCreate => ({
@@ -34,7 +35,12 @@ export function StockAddContainer() {
             stockName: row[1],
             market: row[2],
             industry: row[3],
-            bDate: row[4],
+            bDate: "",
+            bDateCreate: new Date(
+              Number(row[4].substring(0, 4)),
+              Number(row[4].substring(4, 6)) - 1,
+              Number(row[4].substring(6, 8)),
+            ),
             closedPrice: Number(row[5]),
             change: Number(row[6]),
             changePercent: Number(row[7]),
@@ -49,18 +55,20 @@ export function StockAddContainer() {
             lowLimit: Number(row[16]),
           }),
         );
+      console.log(newLines.slice(0, 10));
       setLines(newLines);
     };
-    reader.readAsText(file, "UTF-8");
+    reader.readAsText(file, "SHIFT_JIS");
   };
 
   useEffect(() => {
     readCSV();
   }, [file]);
 
-  const handleClickOnCreate = () => {
+  const handleClickOnCreate = async () => {
     const create = useCreateStock();
-    create(lines);
+    await create(lines);
+    setLines([]);
   };
 
   return (

@@ -17,6 +17,7 @@ export type Stock = {
 
 export type StockCreate = Stock & {
   change: number;
+  bDateCreate: Date;
   changePercent: number;
   previousClose: number;
 };

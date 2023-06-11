@@ -39,7 +39,7 @@ export type StockCreateReq = {
   stockName: string;
   market: string;
   industry: string;
-  date: string;
+  date: Date;
   price: number;
   change: number;
   changePercent: number;
@@ -57,7 +57,7 @@ export type StockCreateReq = {
 export const createReqFromDto = (stock: StockCreate): StockCreateReq => ({
   change: stock.change,
   changePercent: stock.changePercent,
-  date: stock.bDate,
+  date: stock.bDateCreate,
   high: stock.highPrice,
   industry: stock.industry,
   low: stock.lowPrice,

@@ -20,8 +20,9 @@ export const authorize = (
 ): { locationPathNameTo: string; isAuthorized: boolean } => {
   const freeAccess = [appURL.login];
   if (
-    freeAccess.some((path) => locationPathNameTo.startsWith(path)) &&
-    !auth.isLoggedIn
+    locationPathNameTo === appURL.home ||
+    (freeAccess.some((path) => locationPathNameTo.startsWith(path)) &&
+      !auth.isLoggedIn)
   ) {
     return { locationPathNameTo, isAuthorized: true };
   }
@@ -57,9 +58,9 @@ export function AuthMiddleware() {
     );
   }
 
-  // const authRes = authorize(auth, location.pathname);
-  // if (!authRes.isAuthorized) {
-  //   return <Navigate to={authRes.locationPathNameTo} />;
-  // }
+  const authRes = authorize(auth, location.pathname);
+  if (!authRes.isAuthorized) {
+    return <Navigate to={authRes.locationPathNameTo} />;
+  }
   return <Outlet />;
 }

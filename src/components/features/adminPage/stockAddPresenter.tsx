@@ -24,6 +24,10 @@ export function StockAddPresenter({
       {stocksCreate.map((stockCreate) => (
         <div className="flex" key={stockCreate.stockCode}>
           <p>{stockCreate.stockCode}</p>
+          <p>{stockCreate.stockName}</p>
+          <p>{stockCreate.market}</p>
+          <p>{stockCreate.industry}</p>
+          <p>{stockCreate.bDateCreate.toDateString()}</p>
         </div>
       ))}
     </div>
