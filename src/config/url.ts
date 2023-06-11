@@ -6,4 +6,6 @@ export const appURL = {
   simulation: "/simulation/:code",
   todayChart: "/today-chart",
   register: "/register",
+
+  adminStockAdd: "/admin/stock/add",
 };

@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import { StockAddPresenter } from "@/components/features/adminPage/stockAddPresenter";
 import { StockCreate } from "@/domains/stock/dto";
+import { useCreateStock } from "@/hooks/injections";
 
 export function StockAddContainer() {
   const [file, setFile] = useState<File | null>(null);
@@ -57,7 +58,16 @@ export function StockAddContainer() {
     readCSV();
   }, [file]);
 
+  const handleClickOnCreate = () => {
+    const create = useCreateStock();
+    create(lines);
+  };
+
   return (
-    <StockAddPresenter handleChangeOnInputFile={handleChangeOnInputFile} />
+    <StockAddPresenter
+      handleChangeOnInputFile={handleChangeOnInputFile}
+      stocksCreate={lines}
+      handleClickOnCreate={handleClickOnCreate}
+    />
   );
 }

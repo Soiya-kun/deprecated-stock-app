@@ -3,8 +3,14 @@ import { useStockAPI } from "@/adapters/api/stock/api";
 import { useUserAPI } from "@/adapters/api/user/api";
 import { useAuthDriverForAxios } from "@/adapters/auth/auth";
 import { LoginReq } from "@/domains/auth/dto";
+import { StockCreate } from "@/domains/stock/dto";
 import { getTokenInCache, login, logout } from "@/usecases/auth";
-import { getStockCodes, getStocks, getStocksByRandom } from "@/usecases/stock";
+import {
+  createStocks,
+  getStockCodes,
+  getStocks,
+  getStocksByRandom,
+} from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
 // Auth
@@ -58,4 +64,11 @@ export const useGetStockCodes = () => {
     api: useStockAPI(),
   };
   return () => getStockCodes(deps);
+};
+
+export const useCreateStock = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return (stocks: StockCreate[]) => createStocks(deps, stocks);
 };

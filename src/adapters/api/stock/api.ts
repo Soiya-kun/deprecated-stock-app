@@ -1,12 +1,21 @@
 import axios from "axios";
 
-import { entityFromStockRes, StockRes } from "@/adapters/api/stock/schema";
-import { Stock } from "@/domains/stock/dto";
+import {
+  createReqFromDto,
+  entityFromStockRes,
+  StockRes,
+} from "@/adapters/api/stock/schema";
+import { Stock, StockCreate } from "@/domains/stock/dto";
 import { StockAPI } from "@/usecases/ports/stock";
 
 const uri = "stocks";
 
 export const useStockAPI = (): StockAPI => ({
+  async createStocks(stocks: StockCreate[]): Promise<void> {
+    await axios.post<{ stocks: StockRes[] }>(`${uri}`, {
+      stocks: stocks.map(createReqFromDto),
+    });
+  },
   async getStocks(stockCode: string): Promise<Stock[]> {
     const res = await axios.get<StockRes[]>(`${uri}/${stockCode}`);
     return res.data.map((stock) => entityFromStockRes(stock));

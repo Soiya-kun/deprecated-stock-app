@@ -31,7 +31,7 @@ export const authorize = (
     return { locationPathNameTo: appURL.login, isAuthorized: false };
   }
 
-  const userAccess = [appURL.home];
+  const userAccess = [appURL.home, appURL.myPage, appURL.adminStockAdd];
   if (userAccess.some((path) => locationPathNameTo.startsWith(path))) {
     return { locationPathNameTo, isAuthorized: true };
   }
@@ -57,9 +57,9 @@ export function AuthMiddleware() {
     );
   }
 
-  const authRes = authorize(auth, location.pathname);
-  if (!authRes.isAuthorized) {
-    return <Navigate to={authRes.locationPathNameTo} />;
-  }
+  // const authRes = authorize(auth, location.pathname);
+  // if (!authRes.isAuthorized) {
+  //   return <Navigate to={authRes.locationPathNameTo} />;
+  // }
   return <Outlet />;
 }

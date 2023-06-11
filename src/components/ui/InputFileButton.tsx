@@ -19,7 +19,7 @@ export function InputFileButton({
   className,
   onChange,
   onBlur,
-  accept = "image/jpeg, image/png",
+  accept = "",
   multiple = false,
   helptext,
 }: Props) {

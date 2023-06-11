@@ -26,6 +26,10 @@ export const mockStock = (index: number, openPrice: number): Stock => ({
 });
 
 export const useMockStockAPI = (): StockAPI => ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async createStocks(stocks: Stock[]): Promise<void> {
+    console.log(stocks);
+  },
   async getStocks(stockCode: string): Promise<Stock[]> {
     // eslint-disable-next-line no-promise-executor-return
     await new Promise((resolve) => setTimeout(resolve, 1000));
