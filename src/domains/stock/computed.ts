@@ -155,7 +155,9 @@ export const stockInfo = (
     name: todayStock.stockName,
     sc: todayStock.stockCode,
     closedPrice: todayStock.closedPrice,
-    diffFromYesterday: todayStock.closedPrice - yesterdayStock.closedPrice,
+    diffFromYesterday:
+      Math.ceil((todayStock.closedPrice - yesterdayStock.closedPrice) * 100) /
+      100,
     diffFromYesterdayPercent:
       Math.floor(
         ((todayStock.closedPrice - yesterdayStock.closedPrice) /

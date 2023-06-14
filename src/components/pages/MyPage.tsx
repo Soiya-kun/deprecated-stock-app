@@ -12,6 +12,7 @@ export function MyPage() {
       >
         本日のチャート
       </Link>
+      <Link to={appURL.adminStockAdd}>データ追加</Link>
     </div>
   );
 }

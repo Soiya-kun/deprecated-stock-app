@@ -102,18 +102,18 @@ export function TodayChartContainer({
           ]}
         />
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2 shadow-md">
         <DayChartPresenter
           props={{
             data: ch.chartData,
-            className: "w-full h-96",
+            className: "w-full h-80",
             maxVolume: ch.maxVolumeInSvDay,
           }}
         />
         <WeekChartPresenter
           props={{
             data: ch.chartDataWeek,
-            className: "w-full h-96",
+            className: "w-full h-80",
             maxVolume: ch.maxVolumeInSvWeek,
           }}
         />
