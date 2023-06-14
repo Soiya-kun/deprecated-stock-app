@@ -34,6 +34,7 @@ export const chartHook = ({
 } => {
   const minDate = useMemo(() => {
     if (stocks.length === 0) return "";
+    if (stocks[dateState.dayCount] === undefined) return "";
     return stocks[dateState.dayCount].bDate;
   }, [stocks]);
 
