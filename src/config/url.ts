@@ -8,4 +8,5 @@ export const appURL = {
   register: "/register",
 
   adminStockAdd: "/admin/stock/add",
+  adminStockSplitAdd: "/admin/stock-split/add",
 };

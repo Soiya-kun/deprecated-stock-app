@@ -13,6 +13,7 @@ export function MyPage() {
         本日のチャート
       </Link>
       <Link to={appURL.adminStockAdd}>データ追加</Link>
+      <Link to={appURL.adminStockSplitAdd}>株式分割追加</Link>
     </div>
   );
 }

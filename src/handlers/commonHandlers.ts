@@ -68,7 +68,6 @@ export const handleChangeOnSelectMany = <T>(
   setter: (obj: T) => void,
   obj: T,
 ) => {
-  console.log(value, name, setter, obj);
   const arr = obj[name];
   if (!(arr instanceof Array)) {
     throw new Error("value is not an array");

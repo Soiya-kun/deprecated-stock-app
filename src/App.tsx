@@ -12,6 +12,7 @@ import { SimulationPage } from "@/components/pages/SimulationPage";
 import { TodayChart } from "@/components/pages/TodayChart";
 import { TopPage } from "@/components/pages/TopPage";
 import { StockAdd } from "@/components/pages/admin/StockAdd";
+import { StockSplitAdd } from "@/components/pages/admin/StockSplitAdd";
 import { AlertProvider } from "@/components/providers/AlertProvider";
 import { appURL } from "@/config/url";
 
@@ -35,6 +36,10 @@ function App() {
                   />
                   <Route path={appURL.todayChart} element={<TodayChart />} />
                   <Route path={appURL.adminStockAdd} element={<StockAdd />} />
+                  <Route
+                    path={appURL.adminStockSplitAdd}
+                    element={<StockSplitAdd />}
+                  />
                 </Route>
               </Route>
             </Routes>

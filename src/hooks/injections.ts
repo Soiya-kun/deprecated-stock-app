@@ -72,3 +72,11 @@ export const useCreateStock = () => {
   };
   return (stocks: StockCreate[]) => createStocks(deps, stocks);
 };
+
+export const useCreateStockSplit = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return (stockSplit: { stockCode: string; date: Date; splitRatio: number }) =>
+    deps.api.createStockSplit(stockSplit);
+};

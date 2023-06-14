@@ -6,6 +6,7 @@ import {
   StockRes,
 } from "@/adapters/api/stock/schema";
 import { Stock, StockCreate } from "@/domains/stock/dto";
+import { StockSplit } from "@/domains/stockSplit/dto";
 import { StockAPI } from "@/usecases/ports/stock";
 
 const uri = "stocks";
@@ -31,5 +32,8 @@ export const useStockAPI = (): StockAPI => ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async saveStockCode(stockCode: string): Promise<void> {
     return Promise.resolve(undefined);
+  },
+  createStockSplit(stockSplit: StockSplit): Promise<void> {
+    return axios.post(`${uri}/stock-splits`, stockSplit);
   },
 });
