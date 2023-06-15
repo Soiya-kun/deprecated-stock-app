@@ -77,8 +77,50 @@ export function TodayChartContainer({
     return <SixDotsScaleMiddle />;
 
   return (
-    <div className={`flex items-center justify-center ${className}`}>
-      <div className="w-1/2">
+    <>
+      <div className={`flex items-center justify-center ${className}`}>
+        <div className="w-1/2">
+          <StockInfoPresenter
+            stockInfo={stockInfo(
+              stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 1],
+              stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
+            )}
+          />
+          <ChartSituationPresenter
+            className="mt-2"
+            chartData={ch.chartData}
+            chartDataWeek={ch.chartDataWeek}
+            funcs={[
+              ma5Direction,
+              ma20Direction,
+              ma60Direction,
+              wma13Direction,
+              wma26Direction,
+              ma5CrossMa20,
+              ma5CrossMa60,
+              ma20CrossMa60,
+              wma13CrossWma26,
+            ]}
+          />
+        </div>
+        <div className="min-h-[40rem] w-1/2 shadow-md">
+          <DayChartPresenter
+            props={{
+              data: ch.chartData,
+              className: "w-full h-80",
+              maxVolume: ch.maxVolumeInSvDay,
+            }}
+          />
+          <WeekChartPresenter
+            props={{
+              data: ch.chartDataWeek,
+              className: "w-full h-80",
+              maxVolume: ch.maxVolumeInSvWeek,
+            }}
+          />
+        </div>
+      </div>
+      <div className="px-12">
         <StockInfoPresenter
           stockInfo={stockInfo(
             stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 1],
@@ -101,23 +143,14 @@ export function TodayChartContainer({
             wma13CrossWma26,
           ]}
         />
-      </div>
-      <div className="w-1/2 shadow-md">
         <DayChartPresenter
           props={{
             data: ch.chartData,
-            className: "w-full h-80",
+            className: "w-full h-[40rem]",
             maxVolume: ch.maxVolumeInSvDay,
           }}
         />
-        <WeekChartPresenter
-          props={{
-            data: ch.chartDataWeek,
-            className: "w-full h-80",
-            maxVolume: ch.maxVolumeInSvWeek,
-          }}
-        />
       </div>
-    </div>
+    </>
   );
 }
