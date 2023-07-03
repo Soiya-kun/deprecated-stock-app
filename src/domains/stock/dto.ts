@@ -1,3 +1,10 @@
+export type StockPrice = {
+  closedPrice: number;
+  openedPrice: number;
+  highPrice: number;
+  lowPrice: number;
+};
+
 export type Stock = {
   stockCode: string;
   stockName: string;

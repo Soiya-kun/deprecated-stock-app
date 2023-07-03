@@ -13,6 +13,7 @@ import { TodayChart } from "@/components/pages/TodayChart";
 import { TopPage } from "@/components/pages/TopPage";
 import { StockAdd } from "@/components/pages/admin/StockAdd";
 import { StockSplitAdd } from "@/components/pages/admin/StockSplitAdd";
+import { StockSearchPatternCreate } from "@/components/pages/myPage/StockSearchPatternCreate";
 import { AlertProvider } from "@/components/providers/AlertProvider";
 import { appURL } from "@/config/url";
 
@@ -25,11 +26,19 @@ function App() {
             <Routes>
               {/* 認可が必要なページはAuthMiddleware内に配置する */}
               <Route element={<DefaultLayout />}>
+                <Route
+                  path={appURL.myPageSaveSearchStockPattern}
+                  element={<StockSearchPatternCreate />}
+                />
                 <Route element={<AuthMiddleware />}>
                   <Route path={appURL.home} element={<TopPage />} />
                   <Route path={appURL.login} element={<Login />} />
                   <Route path={appURL.error} element={<Error404 />} />
                   <Route path={appURL.myPage} element={<MyPage />} />
+                  <Route
+                    path={appURL.myPageSaveSearchStockPattern}
+                    element={<StockSearchPatternCreate />}
+                  />
                   <Route
                     path={appURL.simulation}
                     element={<SimulationPage />}

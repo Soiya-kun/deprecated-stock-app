@@ -7,7 +7,7 @@ export const appURL = {
   register: "/register",
 
   myPage: "/my-page",
-  myPageSaveSearchStockPattern: "/admin/search-stock-pattern",
+  myPageSaveSearchStockPattern: "/my-mage/search-stock-pattern",
 
   adminStockAdd: "/admin/stock/add",
   adminStockSplitAdd: "/admin/stock-split/add",
