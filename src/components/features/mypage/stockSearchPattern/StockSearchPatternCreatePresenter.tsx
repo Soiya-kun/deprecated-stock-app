@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
+import { AiOutlinePlusCircle } from "react-icons/all";
 
+import { StockPriceSearchForm } from "@/components/features/mypage/stockSearchPattern/form";
 import { StockPrice } from "@/domains/stock/dto";
 import {
   candleStickHeight,
@@ -9,19 +11,21 @@ import {
 } from "@/domains/stock/stockCandleStick";
 
 type Props = {
-  prices: StockPrice[];
+  prices: StockPriceSearchForm[];
   max: number;
   handleChangePrice: (
     indexCol: number,
-    key: keyof StockPrice,
+    key: keyof StockPriceSearchForm,
     e: ChangeEvent<HTMLInputElement>,
   ) => void;
+  handleClickAddButton: () => void;
 };
 
 export function StockSearchPatternCreatePresenter({
   prices,
   max,
   handleChangePrice,
+  handleClickAddButton,
 }: Props) {
   const heightCon = 1500;
   const pricesFixedMax400: StockPrice[] = prices.map(
@@ -34,7 +38,7 @@ export function StockSearchPatternCreatePresenter({
   );
   return (
     <div className="flex flex-col">
-      <div className="mt-20 flex items-start justify-center border border-primary">
+      <div className="mt-20 flex items-start justify-center">
         {pricesFixedMax400.map((price) => (
           <div
             className="mr-0.5 flex w-8 flex-col justify-center"
@@ -43,7 +47,7 @@ export function StockSearchPatternCreatePresenter({
             }}
           >
             <div
-              className="mx-auto w-0 border border-gray-200"
+              className="mx-auto w-0 border border-gray-600"
               style={{
                 height: `${upperMustache(price)}px`,
               }}
@@ -60,16 +64,18 @@ export function StockSearchPatternCreatePresenter({
               style={{
                 height: `${lowerMustache(price)}px`,
               }}
-              className="mx-auto w-0 border border-gray-200"
+              className="mx-auto w-0 border border-gray-600"
             />
           </div>
         ))}
+        <div className="w-20" />
       </div>
-      <div className="mx-auto flex">
+      <div className="mx-auto flex w-max items-center">
         {prices.map((value, i) => (
-          <div className="flex flex-col">
+          <div className="flex w-max flex-col items-end justify-end">
             <input
               className="w-8"
+              type="number"
               value={value.highPrice}
               onChange={(e) => handleChangePrice(i, "highPrice", e)}
             />
@@ -79,6 +85,7 @@ export function StockSearchPatternCreatePresenter({
                   C
                   <input
                     className="w-8"
+                    type="number"
                     value={value.closedPrice}
                     onChange={(e) => handleChangePrice(i, "closedPrice", e)}
                   />
@@ -87,6 +94,7 @@ export function StockSearchPatternCreatePresenter({
                   O
                   <input
                     className="w-8"
+                    type="number"
                     value={value.openedPrice}
                     onChange={(e) => handleChangePrice(i, "openedPrice", e)}
                   />
@@ -98,6 +106,7 @@ export function StockSearchPatternCreatePresenter({
                   O
                   <input
                     className="w-8"
+                    type="number"
                     value={value.openedPrice}
                     onChange={(e) => handleChangePrice(i, "openedPrice", e)}
                   />
@@ -106,6 +115,7 @@ export function StockSearchPatternCreatePresenter({
                   C
                   <input
                     className="w-8"
+                    type="number"
                     value={value.closedPrice}
                     onChange={(e) => handleChangePrice(i, "closedPrice", e)}
                   />
@@ -114,11 +124,37 @@ export function StockSearchPatternCreatePresenter({
             )}
             <input
               className="w-8"
+              type="number"
               value={value.lowPrice}
               onChange={(e) => handleChangePrice(i, "lowPrice", e)}
             />
+            {/* bool */}
+            <div className="mx-auto flex h-6 items-center">
+              <input
+                className="w-8"
+                type="checkbox"
+                checked={value.isClosedPointMatchRank}
+                onChange={(e) =>
+                  handleChangePrice(i, "isClosedPointMatchRank", e)
+                }
+              />
+            </div>
+            <div className="mx-auto flex h-6 items-center">
+              <input
+                className="w-8"
+                type="checkbox"
+                checked={value.isClosedPointOver}
+                onChange={(e) => handleChangePrice(i, "isClosedPointOver", e)}
+              />
+            </div>
           </div>
         ))}
+        <div className="w-20">
+          <AiOutlinePlusCircle
+            className="ml-4 cursor-pointer"
+            onClick={handleClickAddButton}
+          />
+        </div>
       </div>
     </div>
   );
