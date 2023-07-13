@@ -1,4 +1,5 @@
 import { StockCreate } from "@/domains/stock/dto";
+import { StockSearchPattern } from "@/domains/stockSearch/dto";
 import { StockSplit } from "@/domains/stockSplit/dto";
 import { StockAPI } from "@/usecases/ports/stock";
 
@@ -20,3 +21,8 @@ export const createStockSplit = async (
   deps: { api: StockAPI },
   stockSplit: StockSplit,
 ) => deps.api.createStockSplit(stockSplit);
+
+export const saveSearchStockPattern = async (
+  deps: { api: StockAPI },
+  searchStockPattern: StockSearchPattern,
+) => deps.api.saveSearchStockPattern(searchStockPattern);

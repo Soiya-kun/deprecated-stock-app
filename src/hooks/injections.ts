@@ -4,12 +4,15 @@ import { useUserAPI } from "@/adapters/api/user/api";
 import { useAuthDriverForAxios } from "@/adapters/auth/auth";
 import { LoginReq } from "@/domains/auth/dto";
 import { StockCreate } from "@/domains/stock/dto";
+import { StockSearchPattern } from "@/domains/stockSearch/dto";
 import { getTokenInCache, login, logout } from "@/usecases/auth";
 import {
   createStocks,
+  createStockSplit,
   getStockCodes,
   getStocks,
   getStocksByRandom,
+  saveSearchStockPattern,
 } from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
@@ -78,5 +81,12 @@ export const useCreateStockSplit = () => {
     api: useStockAPI(),
   };
   return (stockSplit: { stockCode: string; date: Date; splitRatio: number }) =>
-    deps.api.createStockSplit(stockSplit);
+    createStockSplit(deps, stockSplit);
+};
+
+export const useSaveSearchStockPattern = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return (pattern: StockSearchPattern) => saveSearchStockPattern(deps, pattern);
 };
