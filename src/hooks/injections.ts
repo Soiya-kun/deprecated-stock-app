@@ -13,6 +13,7 @@ import {
   getStocks,
   getStocksByRandom,
   saveSearchStockPattern,
+  saveStockCode,
 } from "@/usecases/stock";
 import { findMe } from "@/usecases/user";
 
@@ -60,6 +61,13 @@ export const useGetStocksByRandom = () => {
     api: useStockAPI(),
   };
   return () => getStocksByRandom(deps);
+};
+
+export const useSaveStockCode = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return (stockCode: string) => saveStockCode(deps, stockCode);
 };
 
 export const useGetStockCodes = () => {

@@ -32,9 +32,9 @@ export const ma5Direction = (svDay: GraphValue[]): Result => {
 
 export const ma20Direction = (svDay: GraphValue[]): Result => {
   try {
-    if (getDayMa20(svDay.slice(-1)[0]) === getDayMa5(svDay.slice(-2)[0]))
+    if (getDayMa20(svDay.slice(-1)[0]) === getDayMa20(svDay.slice(-2)[0]))
       return { message: "ma20 →", direction: undefined };
-    return getDayMa20(svDay.slice(-1)[0]) > getDayMa5(svDay.slice(-2)[0])
+    return getDayMa20(svDay.slice(-1)[0]) > getDayMa20(svDay.slice(-2)[0])
       ? {
           message: "ma20 ↗",
           direction: true,
@@ -49,9 +49,9 @@ export const ma20Direction = (svDay: GraphValue[]): Result => {
 };
 export const ma60Direction = (svDay: GraphValue[]): Result => {
   try {
-    if (getDayMa60(svDay.slice(-1)[0]) === getDayMa5(svDay.slice(-2)[0]))
+    if (getDayMa60(svDay.slice(-1)[0]) === getDayMa60(svDay.slice(-2)[0]))
       return { message: "ma60 →", direction: undefined };
-    return getDayMa60(svDay.slice(-1)[0]) > getDayMa5(svDay.slice(-2)[0])
+    return getDayMa60(svDay.slice(-1)[0]) > getDayMa60(svDay.slice(-2)[0])
       ? {
           message: "ma60 ↗",
           direction: true,

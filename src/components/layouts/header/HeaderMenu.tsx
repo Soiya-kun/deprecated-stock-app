@@ -13,7 +13,7 @@ type Props = {
 export function HeaderMenu({ className = "" }: Props) {
   const auth = useAuthContext();
   return (
-    <Card className={`py-4 ${className}`}>
+    <Card className={`py-4 ${className} z-50`}>
       <TitleSmall label="" className="px-4" />
       {!auth.auth.isLoggedIn ? (
         <Link to="/login">
@@ -23,6 +23,11 @@ export function HeaderMenu({ className = "" }: Props) {
         </Link>
       ) : (
         <>
+          <Link to="/my-page">
+            <p className="cursor-pointer px-4 py-0.5 text-gray-400 hover:bg-gray-100">
+              マイページ
+            </p>
+          </Link>
           <Link to="/chart/saved">
             <p className="cursor-pointer px-4 py-0.5 text-gray-400 hover:bg-gray-100">
               保存したチャート

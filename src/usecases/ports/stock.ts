@@ -9,6 +9,8 @@ export interface StockAPI {
 
   getStocks(stockCode: string): Promise<Stock[]>;
 
+  getStockCodesSaved(): Promise<string[]>;
+
   getStockCodes(): Promise<string[]>;
 
   getStocksByRandom(): Promise<Stock[]>;

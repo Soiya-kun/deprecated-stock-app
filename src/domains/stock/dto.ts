@@ -33,8 +33,10 @@ export type StockInfo = {
   sc: string;
   name: string;
   market: string;
+  recentVolume: number;
   industry: string;
   closedPrice: number;
+  transactionPrice: number;
   diffFromYesterday: number;
   diffFromYesterdayPercent: number;
 };

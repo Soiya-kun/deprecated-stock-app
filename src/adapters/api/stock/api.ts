@@ -6,6 +6,7 @@ import {
   StockRes,
 } from "@/adapters/api/stock/schema";
 import { Stock, StockCreate } from "@/domains/stock/dto";
+import { StockSearchPattern } from "@/domains/stockSearch/dto";
 import { StockSplit } from "@/domains/stockSplit/dto";
 import { StockAPI } from "@/usecases/ports/stock";
 
@@ -29,11 +30,21 @@ export const useStockAPI = (): StockAPI => ({
     const res = await axios.get<{ stockCodes: string[] }>(`${uri}/stock-codes`);
     return res.data.stockCodes;
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getStockCodesSaved(): Promise<string[]> {
+    const res = await axios.get<{ stockCodes: string[] }>(
+      `${uri}/my-stock-codes`,
+    );
+    return res.data.stockCodes;
+  },
   async saveStockCode(stockCode: string): Promise<void> {
-    return Promise.resolve(undefined);
+    await axios.post(`${uri}/stock-codes`, { stockCode });
   },
   createStockSplit(stockSplit: StockSplit): Promise<void> {
     return axios.post(`${uri}/stock-splits`, stockSplit);
+  },
+  async saveSearchStockPattern(
+    stockSearchPattern: StockSearchPattern,
+  ): Promise<void> {
+    await axios.post(`${uri}/save-search-stock-patterns`, stockSearchPattern);
   },
 });

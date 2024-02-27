@@ -6,6 +6,7 @@ import {
 } from "@/components/features/chart/ChartPresenter";
 import { ChartSituationPresenter } from "@/components/features/chart/ChartSituationPresenter";
 import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
+import { Button } from "@/components/ui/Button";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import {
   ma20CrossMa60,
@@ -21,7 +22,11 @@ import {
 import { stockInfo } from "@/domains/stock/computed";
 import { chartHook, DateState } from "@/hooks/chartHook";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
-import { useGetStockCodes, useGetStocks } from "@/hooks/injections";
+import {
+  useGetStockCodes,
+  useGetStocks,
+  useSaveStockCode,
+} from "@/hooks/injections";
 import { useList } from "@/hooks/listHook";
 
 export function TodayChartContainer({
@@ -33,6 +38,11 @@ export function TodayChartContainer({
 
   const [selectedStockCodeIndex, setSelectedStockCodeIndex] =
     useState<number>(0);
+
+  const saveStockCodeHook = async () => {
+    const s = useSaveStockCode();
+    await s(stockCodeListHook.ret[selectedStockCodeIndex]);
+  };
 
   const selectedCode = () => {
     if (
@@ -68,7 +78,7 @@ export function TodayChartContainer({
   const dateState: DateState = {
     dayCount: 60,
     dayBeforeCount: stocks.ret.length - 60,
-    weekCount: 24,
+    weekCount: 48,
   };
 
   const ch = chartHook({ stocks: stocks.ret, dateState });
@@ -86,6 +96,9 @@ export function TodayChartContainer({
               stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
             )}
           />
+          <Button variant="primary" onClick={saveStockCodeHook}>
+            Save
+          </Button>
           <ChartSituationPresenter
             className="mt-2"
             chartData={ch.chartData}

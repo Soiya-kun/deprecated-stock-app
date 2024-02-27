@@ -26,3 +26,8 @@ export const saveSearchStockPattern = async (
   deps: { api: StockAPI },
   searchStockPattern: StockSearchPattern,
 ) => deps.api.saveSearchStockPattern(searchStockPattern);
+
+export const saveStockCode = async (
+  deps: { api: StockAPI },
+  stockCode: string,
+) => deps.api.saveStockCode(stockCode);

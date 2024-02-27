@@ -37,7 +37,7 @@ export function StockSearchPatternCreatePresenter({
   handleClickAddButton,
   handleClickSubmitButton,
 }: Props) {
-  const heightCon = 1500;
+  const heightCon = 400;
   const pricesFixedMax400: StockPrice[] = prices.map(
     (value): StockPrice => ({
       closedPrice: value.closedPrice * (heightCon / max),
@@ -47,7 +47,7 @@ export function StockSearchPatternCreatePresenter({
     }),
   );
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col justify-center">
       <div className="mt-20 flex items-start justify-center">
         {pricesFixedMax400.map((price) => (
           <div
@@ -248,7 +248,11 @@ export function StockSearchPatternCreatePresenter({
           />
         </div>
       </div>
-      <ButtonWithError onClick={handleClickSubmitButton} variant="primary">
+      <ButtonWithError
+        onClick={handleClickSubmitButton}
+        variant="primary"
+        className="mx-auto"
+      >
         登録する
       </ButtonWithError>
     </div>

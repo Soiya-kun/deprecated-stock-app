@@ -144,7 +144,9 @@ export const stockInfo = (
       market: "",
       name: "",
       sc: "",
+      recentVolume: 0,
       closedPrice: 0,
+      transactionPrice: 0,
       diffFromYesterday: 0,
       diffFromYesterdayPercent: 0,
     };
@@ -154,7 +156,9 @@ export const stockInfo = (
     market: todayStock.market,
     name: todayStock.stockName,
     sc: todayStock.stockCode,
+    recentVolume: todayStock.volume,
     closedPrice: todayStock.closedPrice,
+    transactionPrice: todayStock.transactionPrice,
     diffFromYesterday:
       Math.ceil((todayStock.closedPrice - yesterdayStock.closedPrice) * 100) /
       100,
