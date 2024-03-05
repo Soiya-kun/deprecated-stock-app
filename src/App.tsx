@@ -14,6 +14,7 @@ import { TopPage } from "@/components/pages/TopPage";
 import { StockAdd } from "@/components/pages/admin/StockAdd";
 import { StockSplitAdd } from "@/components/pages/admin/StockSplitAdd";
 import { StockSearchPatternCreate } from "@/components/pages/myPage/StockSearchPatternCreate";
+import { TodaySavedChart } from "@/components/pages/myPage/TodaySavedChart";
 import { AlertProvider } from "@/components/providers/AlertProvider";
 import { appURL } from "@/config/url";
 
@@ -44,6 +45,10 @@ function App() {
                     element={<SimulationPage />}
                   />
                   <Route path={appURL.todayChart} element={<TodayChart />} />
+                  <Route
+                    path={appURL.myPageSavedChart}
+                    element={<TodaySavedChart />}
+                  />
                   <Route path={appURL.adminStockAdd} element={<StockAdd />} />
                   <Route
                     path={appURL.adminStockSplitAdd}

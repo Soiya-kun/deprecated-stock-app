@@ -31,3 +31,6 @@ export const saveStockCode = async (
   deps: { api: StockAPI },
   stockCode: string,
 ) => deps.api.saveStockCode(stockCode);
+
+export const getStockCodesSaved = async (deps: { api: StockAPI }) =>
+  deps.api.getStockCodesSaved();

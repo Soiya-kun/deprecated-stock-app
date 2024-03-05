@@ -10,6 +10,7 @@ import {
   createStocks,
   createStockSplit,
   getStockCodes,
+  getStockCodesSaved,
   getStocks,
   getStocksByRandom,
   saveSearchStockPattern,
@@ -75,6 +76,13 @@ export const useGetStockCodes = () => {
     api: useStockAPI(),
   };
   return () => getStockCodes(deps);
+};
+
+export const useGetSavedStockCodes = () => {
+  const deps = {
+    api: useStockAPI(),
+  };
+  return () => getStockCodesSaved(deps);
 };
 
 export const useCreateStock = () => {

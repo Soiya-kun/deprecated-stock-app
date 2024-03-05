@@ -26,18 +26,18 @@ import { stockInfo } from "@/domains/stock/computed";
 import { chartHook, DateState } from "@/hooks/chartHook";
 import { useFindFirstByQuery } from "@/hooks/findFirstByQuery";
 import {
-  useGetStockCodes,
+  useGetSavedStockCodes,
   useGetStocks,
   useSaveStockCode,
 } from "@/hooks/injections";
 import { useList } from "@/hooks/listHook";
 
-export function TodayChartContainer({
+export function TodaySavedChartContainer({
   className = "",
 }: {
   className?: string;
 }) {
-  const stockCodeListHook = useList(useGetStockCodes());
+  const stockCodeListHook = useList(useGetSavedStockCodes());
 
   const [selectedStockCodeIndex, setSelectedStockCodeIndex] =
     useState<number>(0);

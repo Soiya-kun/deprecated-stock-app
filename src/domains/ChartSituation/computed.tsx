@@ -29,7 +29,6 @@ export const ma5Direction = (svDay: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
-
 export const ma20Direction = (svDay: GraphValue[]): Result => {
   try {
     if (getDayMa20(svDay.slice(-1)[0]) === getDayMa20(svDay.slice(-2)[0]))
@@ -64,7 +63,6 @@ export const ma60Direction = (svDay: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
-
 export const wma13Direction = (svWeek: GraphValue[]): Result => {
   try {
     if (getWeekMa13(svWeek.slice(-1)[0]) === getWeekMa13(svWeek.slice(-2)[0]))
@@ -82,7 +80,6 @@ export const wma13Direction = (svWeek: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
-
 export const wma26Direction = (svWeek: GraphValue[]): Result => {
   try {
     if (getWeekMa26(svWeek.slice(-1)[0]) === getWeekMa26(svWeek.slice(-2)[0]))
@@ -100,6 +97,59 @@ export const wma26Direction = (svWeek: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
+
+export const ma5DirectionTurn = (svDay: GraphValue[]): Result => {
+  try {
+    if (
+      getDayMa5(svDay.slice(-2)[0]) < getDayMa5(svDay.slice(-1)[0]) &&
+      getDayMa5(svDay.slice(-3)[0]) > getDayMa5(svDay.slice(-2)[0])
+    )
+      return { message: "ma5↘↗", direction: true };
+    if (
+      getDayMa5(svDay.slice(-2)[0]) > getDayMa5(svDay.slice(-1)[0]) &&
+      getDayMa5(svDay.slice(-3)[0]) < getDayMa5(svDay.slice(-2)[0])
+    )
+      return { message: "ma5↗↘", direction: false };
+  } catch (e) {
+    return { message: "", direction: undefined };
+  }
+  return { message: "", direction: undefined };
+};
+export const ma20DirectionTurn = (svDay: GraphValue[]): Result => {
+  try {
+    if (
+      getDayMa20(svDay.slice(-2)[0]) < getDayMa20(svDay.slice(-1)[0]) &&
+      getDayMa20(svDay.slice(-3)[0]) > getDayMa20(svDay.slice(-2)[0])
+    )
+      return { message: "ma20↘↗", direction: true };
+    if (
+      getDayMa20(svDay.slice(-2)[0]) > getDayMa20(svDay.slice(-1)[0]) &&
+      getDayMa20(svDay.slice(-3)[0]) < getDayMa20(svDay.slice(-2)[0])
+    )
+      return { message: "ma20↗↘", direction: false };
+  } catch (e) {
+    return { message: "", direction: undefined };
+  }
+  return { message: "", direction: undefined };
+};
+export const ma60DirectionTurn = (svDay: GraphValue[]): Result => {
+  try {
+    if (
+      getDayMa60(svDay.slice(-2)[0]) < getDayMa60(svDay.slice(-1)[0]) &&
+      getDayMa60(svDay.slice(-3)[0]) > getDayMa60(svDay.slice(-2)[0])
+    )
+      return { message: "ma60↘↗", direction: true };
+    if (
+      getDayMa60(svDay.slice(-2)[0]) > getDayMa60(svDay.slice(-1)[0]) &&
+      getDayMa60(svDay.slice(-3)[0]) < getDayMa60(svDay.slice(-2)[0])
+    )
+      return { message: "ma60↗↘", direction: false };
+  } catch (e) {
+    return { message: "", direction: undefined };
+  }
+  return { message: "", direction: undefined };
+};
+
 export const ma5CrossMa20 = (svDay: GraphValue[]): Result => {
   try {
     if (
@@ -117,7 +167,6 @@ export const ma5CrossMa20 = (svDay: GraphValue[]): Result => {
   }
   return { message: "", direction: undefined };
 };
-
 export const ma5CrossMa60 = (svDay: GraphValue[]): Result => {
   try {
     if (
@@ -135,7 +184,6 @@ export const ma5CrossMa60 = (svDay: GraphValue[]): Result => {
   }
   return { message: "", direction: undefined };
 };
-
 export const ma20CrossMa60 = (svDay: GraphValue[]): Result => {
   try {
     if (
@@ -159,12 +207,12 @@ export const wma13CrossWma26 = (svDay: GraphValue[]): Result => {
       getWeekMa13(svDay.slice(-2)[0]) < getWeekMa26(svDay.slice(-2)[0]) &&
       getWeekMa13(svDay.slice(-1)[0]) >= getWeekMa26(svDay.slice(-1)[0])
     )
-      return { message: "ma5↗ma20", direction: true };
+      return { message: "wma13↗wma26", direction: true };
     if (
       getWeekMa13(svDay.slice(-2)[0]) > getWeekMa26(svDay.slice(-2)[0]) &&
       getWeekMa13(svDay.slice(-1)[0]) <= getWeekMa26(svDay.slice(-1)[0])
     )
-      return { message: "ma5↘ma20", direction: false };
+      return { message: "wma13↘wma26", direction: false };
   } catch (e) {
     return { message: "", direction: undefined };
   }

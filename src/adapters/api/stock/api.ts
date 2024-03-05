@@ -27,7 +27,14 @@ export const useStockAPI = (): StockAPI => ({
     return res.data.map((stock) => entityFromStockRes(stock));
   },
   async getStockCodes(): Promise<string[]> {
-    const res = await axios.get<{ stockCodes: string[] }>(`${uri}/stock-codes`);
+    // const res = await axios.get<{ stockCodes: string[] }>(`${uri}/stock-codes`);
+    const res = await axios.post<{ stockCodes: string[] }>(
+      `${uri}/stock-codes/threshold`,
+      {
+        minTradeValue: 5000000,
+        date: new Date(),
+      },
+    );
     return res.data.stockCodes;
   },
   async getStockCodesSaved(): Promise<string[]> {
