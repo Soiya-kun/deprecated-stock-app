@@ -61,6 +61,7 @@ export function DayChartPresenter({
         vAxes: {
           0: {
             title: "円",
+            minValue: props.data[0][1],
           },
           1: {
             // 株の取引ボリューム

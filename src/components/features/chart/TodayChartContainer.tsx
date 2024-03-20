@@ -91,17 +91,19 @@ export function TodayChartContainer({
 
   return (
     <>
-      <div className={`flex items-center justify-center ${className}`}>
-        <div className="w-1/2">
-          <StockInfoPresenter
-            stockInfo={stockInfo(
-              stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 1],
-              stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
-            )}
-          />
-          <Button variant="primary" onClick={saveStockCodeHook}>
-            Save
-          </Button>
+      <div className={`flex flex-col ${className}`}>
+        <div className="flex gap-16">
+          <div>
+            <StockInfoPresenter
+              stockInfo={stockInfo(
+                stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 1],
+                stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
+              )}
+            />
+            <Button variant="primary" onClick={saveStockCodeHook}>
+              Save
+            </Button>
+          </div>
           <ChartSituationPresenter
             className="mt-2"
             chartData={ch.chartData}
@@ -119,18 +121,18 @@ export function TodayChartContainer({
             ]}
           />
         </div>
-        <div className="min-h-[40rem] w-1/2 shadow-md">
+        <div className="grid min-h-[40rem] grid-cols-2 shadow-md">
           <DayChartPresenter
             props={{
               data: ch.chartData,
-              className: "w-full h-80",
+              className: "w-full h-[32rem]",
               maxVolume: ch.maxVolumeInSvDay,
             }}
           />
           <WeekChartPresenter
             props={{
               data: ch.chartDataWeek,
-              className: "w-full h-80",
+              className: "w-full h-[32rem]",
               maxVolume: ch.maxVolumeInSvWeek,
             }}
           />
