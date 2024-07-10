@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   DayChartPresenter,
@@ -8,6 +9,7 @@ import { ChartSituationPresenter } from "@/components/features/chart/ChartSituat
 import { StockInfoPresenter } from "@/components/features/stock/StockInfoPresenter";
 import { Button } from "@/components/ui/Button";
 import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
+import { appURL } from "@/config/url";
 import {
   ma20CrossMa60,
   ma20Direction,
@@ -82,6 +84,7 @@ export function TodayChartContainer({
     dayCount: 60,
     dayBeforeCount: stocks.ret.length - 60,
     weekCount: 48,
+    weekLongCount: 148,
   };
 
   const ch = chartHook({ stocks: stocks.ret, dateState });
@@ -100,9 +103,17 @@ export function TodayChartContainer({
                 stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
               )}
             />
-            <Button variant="primary" onClick={saveStockCodeHook}>
-              Save
-            </Button>
+            <div className="flex gap-4">
+              <Button variant="primary" onClick={saveStockCodeHook}>
+                Save
+              </Button>
+              <Link
+                className="rounded-md border border-primary px-3 py-2 text-primary"
+                to={appURL.simulation.replace(":code", selectedCode())}
+              >
+                simulation
+              </Link>
+            </div>
           </div>
           <ChartSituationPresenter
             className="mt-2"
@@ -121,7 +132,7 @@ export function TodayChartContainer({
             ]}
           />
         </div>
-        <div className="grid min-h-[40rem] grid-cols-2 shadow-md">
+        <div className="grid h-max grid-cols-2 shadow-md">
           <DayChartPresenter
             props={{
               data: ch.chartData,
@@ -139,33 +150,11 @@ export function TodayChartContainer({
         </div>
       </div>
       <div className="px-12">
-        <StockInfoPresenter
-          stockInfo={stockInfo(
-            stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 1],
-            stocks.ret[dateState.dayBeforeCount + dateState.dayCount - 2],
-          )}
-        />
-        <ChartSituationPresenter
-          className="mt-2"
-          chartData={ch.chartData}
-          chartDataWeek={ch.chartDataWeek}
-          funcs={[
-            [
-              ma5Direction,
-              ma20Direction,
-              ma60Direction,
-              wma13Direction,
-              wma26Direction,
-            ],
-            [ma5DirectionTurn, ma20DirectionTurn, ma60DirectionTurn],
-            [ma5CrossMa20, ma5CrossMa60, ma20CrossMa60, wma13CrossWma26],
-          ]}
-        />
-        <DayChartPresenter
+        <WeekChartPresenter
           props={{
-            data: ch.chartData,
-            className: "w-full h-[40rem]",
-            maxVolume: ch.maxVolumeInSvDay,
+            data: ch.chartDataWeekLong,
+            className: "w-full h-[32rem]",
+            maxVolume: ch.maxVolumeInSvWeek,
           }}
         />
       </div>

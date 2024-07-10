@@ -31,10 +31,13 @@ import { SixDotsScaleMiddle } from "@/components/ui/SixdotsScaleMiddle";
 import {
   ma20CrossMa60,
   ma20Direction,
+  ma20DirectionTurn,
   ma5CrossMa20,
   ma5CrossMa60,
   ma5Direction,
+  ma5DirectionTurn,
   ma60Direction,
+  ma60DirectionTurn,
   wma13CrossWma26,
   wma13Direction,
   wma26Direction,
@@ -65,6 +68,10 @@ const WeekChart = memo<ComponentProps<typeof WeekChartPresenter>>(
   forwardRef(WeekChartPresenter),
 );
 
+const WeekChartLong = memo<ComponentProps<typeof WeekChartPresenter>>(
+  forwardRef(WeekChartPresenter),
+);
+
 export function SimulationContainer({ className, code }: Props) {
   const findStocksHook =
     code != null
@@ -75,6 +82,8 @@ export function SimulationContainer({ className, code }: Props) {
     dayCount: 60,
     dayBeforeCount: 0,
     weekCount: 24,
+    weekLongCount: 48,
+    reverseOffset: 120,
   });
 
   const ch = chartHook({ stocks: findStocksHook.ret, dateState });
@@ -190,6 +199,7 @@ export function SimulationContainer({ className, code }: Props) {
     }),
     [ch.chartData, ch.maxVolumeInSvDay],
   );
+
   const weekChartRef = useRef<GoogleChartRef>(null);
   const weekChartProps = useMemo(
     () => ({
@@ -200,6 +210,16 @@ export function SimulationContainer({ className, code }: Props) {
     [ch.chartDataWeek, ch.maxVolumeInSvWeek],
   );
 
+  const weekLongChartRef = useRef<GoogleChartRef>(null);
+  const weekLongChartProps = useMemo(
+    () => ({
+      className: "w-full min-h-[24rem] h-[40vh]",
+      data: ch.chartDataWeekLongReverse,
+      maxVolume: ch.maxVolumeInSvWeekLongReverse,
+    }),
+    [ch.chartDataWeekLongReverse, ch.maxVolumeInSvWeekLongReverse],
+  );
+
   useEffect(() => {
     if (!isStart) return;
     // handleKeyDownOnRightArrow, handleKeyDownOnLeftArrowを登録
@@ -208,69 +228,74 @@ export function SimulationContainer({ className, code }: Props) {
 
   const { showMode } = useBreakPointContext();
   return showMode === "pc" ? (
-    <div className={`flex w-full ${className}`}>
-      <div
-        className={`w-1/2 flex-col items-center justify-center pr-4 ${
-          isStart ? "" : "flex"
-        }`}
-      >
-        {!isStart && (
-          <SimulationStartPresenter
-            inputHook={startSettingInputHook}
-            handleClickOnStartButton={handleClickOnStartButton}
-            minDate={ch.minDate}
-            errorMessage={startErrorMessage}
-          />
-        )}
-        {isStart && (
-          <>
-            <StockInfoPresenter
-              stockInfo={stockInfo(
-                findStocksHook.ret[
-                  dateState.dayBeforeCount + dateState.dayCount - 1
-                ],
-                findStocksHook.ret[
-                  dateState.dayBeforeCount + dateState.dayCount - 2
-                ],
-              )}
+    <div>
+      <div className={`flex w-full ${className}`}>
+        <div
+          className={`w-1/2 flex-col items-center justify-center pr-4 ${
+            isStart ? "" : "flex"
+          }`}
+        >
+          {!isStart && (
+            <SimulationStartPresenter
+              inputHook={startSettingInputHook}
+              handleClickOnStartButton={handleClickOnStartButton}
+              minDate={ch.minDate}
+              errorMessage={startErrorMessage}
             />
-            <ChartSituationPresenter
-              className="mt-2"
-              chartData={ch.chartData}
-              chartDataWeek={ch.chartDataWeek}
-              funcs={[
-                ma5Direction,
-                ma20Direction,
-                ma60Direction,
-                wma13Direction,
-                wma26Direction,
-                ma5CrossMa20,
-                ma5CrossMa60,
-                ma20CrossMa60,
-                wma13CrossWma26,
-              ]}
-            />
-            <SimulationActionPresenter
-              className="mt-4"
-              simulationHook={simulationHook}
-              simulation={simulation}
-              simulationResult={result}
-              isToSave
-            />
-          </>
-        )}
+          )}
+          {isStart && (
+            <>
+              <StockInfoPresenter
+                stockInfo={stockInfo(
+                  findStocksHook.ret[
+                    dateState.dayBeforeCount + dateState.dayCount - 1
+                  ],
+                  findStocksHook.ret[
+                    dateState.dayBeforeCount + dateState.dayCount - 2
+                  ],
+                )}
+              />
+              <ChartSituationPresenter
+                className="mt-2"
+                chartData={ch.chartData}
+                chartDataWeek={ch.chartDataWeek}
+                funcs={[
+                  [
+                    ma5Direction,
+                    ma20Direction,
+                    ma60Direction,
+                    wma13Direction,
+                    wma26Direction,
+                  ],
+                  [ma5DirectionTurn, ma20DirectionTurn, ma60DirectionTurn],
+                  [ma5CrossMa20, ma5CrossMa60, ma20CrossMa60, wma13CrossWma26],
+                ]}
+              />
+              <SimulationActionPresenter
+                className="mt-4"
+                simulationHook={simulationHook}
+                simulation={simulation}
+                simulationResult={result}
+                isToSave
+              />
+            </>
+          )}
+        </div>
+        <div className="min-h-[52rem] w-1/2">
+          {findStocksHook.isLoading ? (
+            <div className="flex h-full w-full items-center justify-center">
+              <SixDotsScaleMiddle />
+            </div>
+          ) : (
+            <>
+              <DayChart ref={dayChartRef} props={dayChartProps} />
+              <WeekChart ref={weekChartRef} props={weekChartProps} />
+            </>
+          )}
+        </div>
       </div>
-      <div className="min-h-[52rem] w-1/2">
-        {findStocksHook.isLoading ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <SixDotsScaleMiddle />
-          </div>
-        ) : (
-          <>
-            <DayChart ref={dayChartRef} props={dayChartProps} />
-            <WeekChart ref={weekChartRef} props={weekChartProps} />
-          </>
-        )}
+      <div className="px-12">
+        <WeekChartLong ref={weekLongChartRef} props={weekLongChartProps} />
       </div>
     </div>
   ) : (

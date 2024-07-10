@@ -63,7 +63,10 @@ export const ma60Direction = (svDay: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
-export const wma13Direction = (svWeek: GraphValue[]): Result => {
+export const wma13Direction = (
+  _: GraphValue[],
+  svWeek: GraphValue[],
+): Result => {
   try {
     if (getWeekMa13(svWeek.slice(-1)[0]) === getWeekMa13(svWeek.slice(-2)[0]))
       return { message: "wma13 →", direction: undefined };
@@ -80,7 +83,10 @@ export const wma13Direction = (svWeek: GraphValue[]): Result => {
     return { message: "", direction: undefined };
   }
 };
-export const wma26Direction = (svWeek: GraphValue[]): Result => {
+export const wma26Direction = (
+  _: GraphValue[],
+  svWeek: GraphValue[],
+): Result => {
   try {
     if (getWeekMa26(svWeek.slice(-1)[0]) === getWeekMa26(svWeek.slice(-2)[0]))
       return { message: "wma26 →", direction: undefined };
@@ -201,16 +207,19 @@ export const ma20CrossMa60 = (svDay: GraphValue[]): Result => {
   }
   return { message: "", direction: undefined };
 };
-export const wma13CrossWma26 = (svDay: GraphValue[]): Result => {
+export const wma13CrossWma26 = (
+  _: GraphValue[],
+  svWeek: GraphValue[],
+): Result => {
   try {
     if (
-      getWeekMa13(svDay.slice(-2)[0]) < getWeekMa26(svDay.slice(-2)[0]) &&
-      getWeekMa13(svDay.slice(-1)[0]) >= getWeekMa26(svDay.slice(-1)[0])
+      getWeekMa13(svWeek.slice(-2)[0]) < getWeekMa26(svWeek.slice(-2)[0]) &&
+      getWeekMa13(svWeek.slice(-1)[0]) >= getWeekMa26(svWeek.slice(-1)[0])
     )
       return { message: "wma13↗wma26", direction: true };
     if (
-      getWeekMa13(svDay.slice(-2)[0]) > getWeekMa26(svDay.slice(-2)[0]) &&
-      getWeekMa13(svDay.slice(-1)[0]) <= getWeekMa26(svDay.slice(-1)[0])
+      getWeekMa13(svWeek.slice(-2)[0]) > getWeekMa26(svWeek.slice(-2)[0]) &&
+      getWeekMa13(svWeek.slice(-1)[0]) <= getWeekMa26(svWeek.slice(-1)[0])
     )
       return { message: "wma13↘wma26", direction: false };
   } catch (e) {

@@ -16,8 +16,8 @@ export const getWeekHigh = (gv: GraphValue): number => Number(gv[1]);
 export const getWeekOpen = (gv: GraphValue): number => Number(gv[2]);
 export const getWeekClose = (gv: GraphValue): number => Number(gv[3]);
 export const getWeekLow = (gv: GraphValue): number => Number(gv[4]);
-export const getWeekMa13 = (gv: GraphValue): number => Number(gv[5]);
-export const getWeekMa26 = (gv: GraphValue): number => Number(gv[6]);
+export const getWeekMa13 = (gv: GraphValue): number => Number(gv[6]);
+export const getWeekMa26 = (gv: GraphValue): number => Number(gv[7]);
 
 const getMa = (stocks: Stock[], index: number, length: number): number => {
   if (index < length) {
